@@ -23,6 +23,14 @@ public class Role {
                     CascadeType.DETACH, CascadeType.REFRESH})
     private List<User> users;
 
+    public Role(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Role() {
+    }
+
     public int getId() {
         return id;
     }

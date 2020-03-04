@@ -123,15 +123,21 @@ public class AuthController {
     }
 
     //TEST ENDPOINT
+    @GetMapping("/client")
+    public String helloClient() {
+        return "Hello client";
+    }
+
+    //TEST ENDPOINT
     @GetMapping("/admin")
     public String helloAdmin() {
         return "Hello admin";
     }
 
     //TEST ENDPOINT
-    @GetMapping("/user")
-    public String helloUser() {
-        return "Hello user";
+    @GetMapping("/courier")
+    public String helloCourier() {
+        return "Hello courier";
     }
 
 }
