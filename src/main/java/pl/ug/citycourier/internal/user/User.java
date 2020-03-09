@@ -9,7 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
-@Entity()
+@Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +29,11 @@ public class User {
     @ManyToOne
     private Role role;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private Set<Delivery> sentDeliveries;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "courier")
     private Set<Delivery> servedDeliveries;
 
