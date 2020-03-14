@@ -1,13 +1,15 @@
 package pl.ug.citycourier.internal.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import pl.ug.citycourier.internal.delivery.Delivery;
 import pl.ug.citycourier.internal.security.entity.Role;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
-@Entity()
+@Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +28,14 @@ public class User {
     @JsonIgnore
     @ManyToOne
     private Role role;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "client")
+    private Set<Delivery> sentDeliveries;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "courier")
+    private Set<Delivery> servedDeliveries;
 
     public long getId() {
         return id;
@@ -89,5 +99,21 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Set<Delivery> getSentDeliveries() {
+        return sentDeliveries;
+    }
+
+    public void setSentDeliveries(Set<Delivery> sentDeliveries) {
+        this.sentDeliveries = sentDeliveries;
+    }
+
+    public Set<Delivery> getServedDeliveries() {
+        return servedDeliveries;
+    }
+
+    public void setServedDeliveries(Set<Delivery> servedDeliveries) {
+        this.servedDeliveries = servedDeliveries;
     }
 }
