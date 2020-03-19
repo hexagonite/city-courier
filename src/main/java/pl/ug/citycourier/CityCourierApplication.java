@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import pl.ug.citycourier.internal.security.boundary.RoleName;
 import pl.ug.citycourier.internal.security.entity.Role;
 import pl.ug.citycourier.internal.security.internal.repository.RoleRepository;
 
@@ -23,9 +24,9 @@ public class CityCourierApplication {
     @Bean
     public SmartInitializingSingleton addUserRoles() {
         return () -> {
-            roleRepository.save(new Role(1, "CLIENT"));
-            roleRepository.save(new Role(2, "ADMIN"));
-            roleRepository.save(new Role(3, "COURIER"));
+            roleRepository.save(new Role(1, RoleName.CLIENT));
+            roleRepository.save(new Role(2, RoleName.ADMIN));
+            roleRepository.save(new Role(3, RoleName.COURIER));
         };
     }
 
