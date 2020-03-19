@@ -111,7 +111,7 @@ public class AuthController {
 
     private void authWithoutPassword(User user) {
         List<String> role = new ArrayList<>();
-        role.add(user.getRole().getName());
+        role.add(user.getRole().toString());
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, getAuthorities(role));
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }

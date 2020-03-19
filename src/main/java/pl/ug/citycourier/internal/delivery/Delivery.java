@@ -5,6 +5,7 @@ import pl.ug.citycourier.internal.pack.Pack;
 import pl.ug.citycourier.internal.user.User;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Delivery {
@@ -32,6 +33,8 @@ public class Delivery {
     @ManyToOne
     @JoinColumn(name = "destinationLocationId")
     private Location destination;
+
+    private LocalDateTime getPackDate;
 
     public long getId() {
         return id;
@@ -79,5 +82,13 @@ public class Delivery {
 
     public void setDestination(Location destination) {
         this.destination = destination;
+    }
+
+    public LocalDateTime getGetPackDate() {
+        return getPackDate;
+    }
+
+    public void setGetPackDate(LocalDateTime getPackDate) {
+        this.getPackDate = getPackDate;
     }
 }

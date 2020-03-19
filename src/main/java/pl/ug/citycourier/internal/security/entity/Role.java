@@ -1,6 +1,7 @@
 package pl.ug.citycourier.internal.security.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import pl.ug.citycourier.internal.security.boundary.RoleName;
 import pl.ug.citycourier.internal.user.User;
 
 import javax.persistence.*;
@@ -15,7 +16,8 @@ public class Role {
     private int id;
 
     @Column(unique = true, nullable = false)
-    private String name;
+    @Enumerated(value = EnumType.STRING)
+    private RoleName name;
     @JsonBackReference
     @OneToMany(
             mappedBy = "role",
@@ -23,7 +25,7 @@ public class Role {
                     CascadeType.DETACH, CascadeType.REFRESH})
     private List<User> users;
 
-    public Role(int id, String name) {
+    public Role(int id, RoleName name) {
         this.id = id;
         this.name = name;
     }
@@ -39,11 +41,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
+    public RoleName getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(RoleName name) {
         this.name = name;
     }
 
@@ -57,6 +59,6 @@ public class Role {
 
     @Override
     public String toString() {
-        return name;
+        return name.toString();
     }
 }

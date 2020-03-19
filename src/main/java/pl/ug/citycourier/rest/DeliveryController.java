@@ -3,10 +3,8 @@ package pl.ug.citycourier.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pl.ug.citycourier.internal.common.EntityNotFoundException;
 import pl.ug.citycourier.internal.delivery.Delivery;
 import pl.ug.citycourier.internal.delivery.DeliveryService;
 import pl.ug.citycourier.internal.delivery.NewDeliveryDTO;
@@ -27,6 +25,11 @@ public class DeliveryController {
     @PostMapping("/addPack")
     public Delivery addNewDelivery(@RequestBody NewDeliveryDTO newDeliveryDTO) throws UserNotFoundException {
         return deliveryService.addDelivery(newDeliveryDTO, getUserNameFromSecurityContextHolder());
+    }
+
+    @GetMapping("/getPackFromClient/{id}")
+    public void getPackFromClient(@PathVariable("id") long packId) throws EntityNotFoundException {
+        deliveryService.getPackFromClient(packId, getUserNameFromSecurityContextHolder());
     }
 
     private String getUserNameFromSecurityContextHolder() {
