@@ -35,6 +35,7 @@ public class Delivery {
     private Location destination;
 
     private LocalDateTime getPackDate;
+    private LocalDateTime deliverPackDate;
 
     public long getId() {
         return id;
@@ -90,5 +91,13 @@ public class Delivery {
 
     public void setGetPackDate(LocalDateTime getPackDate) {
         this.getPackDate = getPackDate;
+    }
+
+    public LocalDateTime getDeliverPackDate() {
+        return deliverPackDate;
+    }
+
+    public void setDeliverPackDate(LocalDateTime deliverPackDate) {
+        this.deliverPackDate = deliverPackDate;
     }
 }
