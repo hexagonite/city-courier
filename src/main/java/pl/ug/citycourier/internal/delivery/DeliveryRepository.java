@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface DeliveryRepository extends CrudRepository<Delivery, Long> {
     Optional<Delivery> findByPack(Pack pack);
+
+    Iterable<Delivery> findByCourierIsNull();
 }

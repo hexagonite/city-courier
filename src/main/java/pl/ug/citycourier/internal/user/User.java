@@ -29,6 +29,7 @@ public class User {
     @JsonIgnore
     @ManyToOne
     private Role role;
+    private boolean isAvailable;
 
     @JsonIgnore
     @OneToMany(mappedBy = "client")
@@ -100,6 +101,14 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 
     public Set<Delivery> getSentDeliveries() {

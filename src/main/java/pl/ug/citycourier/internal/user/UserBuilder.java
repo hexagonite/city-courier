@@ -11,6 +11,7 @@ public final class UserBuilder {
     private String password;
     private String surname;
     private Role role;
+    private boolean isAvailable;
 
     private UserBuilder() {
     }
@@ -59,6 +60,11 @@ public final class UserBuilder {
         return this;
     }
 
+    public UserBuilder withAvailable(boolean isAvailable) {
+        this.isAvailable = isAvailable;
+        return this;
+    }
+
     public User build() {
         User user = new User();
         user.setId(id);
@@ -69,6 +75,7 @@ public final class UserBuilder {
         user.setPassword(password);
         user.setSurname(surname);
         user.setRole(role);
+        user.setAvailable(isAvailable);
         return user;
     }
 }
