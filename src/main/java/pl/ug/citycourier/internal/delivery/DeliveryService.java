@@ -74,4 +74,20 @@ public class DeliveryService {
         return deliveryRepository.findByPack(pack).orElseThrow(DeliveryNotFoundException::new);
     }
 
+    @Transactional
+    public void deliverPack(long packId, String username) throws EntityNotFoundException {
+        checkIfUserIsCourier(username);
+        Delivery delivery = getDeliveryByPackId(packId);
+        delivery.setDeliverPackDate(LocalDateTime.now());
+    }
+
+    private void checkIfUserIsCourier(String username) throws EntityNotFoundException {
+        try {
+            getCourierFromUsername(username);
+        } catch (BadCredentialsException e) {
+            throw new BadCredentialsException("You need to be courier to deliver pack to client");
+        } catch (EntityNotFoundException e) {
+            throw e;
+        }
+    }
 }

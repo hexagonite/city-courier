@@ -32,6 +32,11 @@ public class DeliveryController {
         deliveryService.getPackFromClient(packId, getUserNameFromSecurityContextHolder());
     }
 
+    @GetMapping("/deliveryPack/{id}")
+    public void deliverPack(@PathVariable("id") long packId) throws EntityNotFoundException {
+        deliveryService.deliverPack(packId, getUserNameFromSecurityContextHolder());
+    }
+
     private String getUserNameFromSecurityContextHolder() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
