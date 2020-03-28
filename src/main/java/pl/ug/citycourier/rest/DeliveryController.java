@@ -16,35 +16,26 @@ import pl.ug.citycourier.internal.user.UserNotFoundException;
 public class DeliveryController {
 
     private DeliveryService deliveryService;
+    private SecurityUserController securityUserController;
 
     @Autowired
-    public DeliveryController(DeliveryService deliveryService) {
+    public DeliveryController(DeliveryService deliveryService, SecurityUserController securityUserController) {
         this.deliveryService = deliveryService;
+        this.securityUserController = securityUserController;
     }
 
     @PostMapping("/addPack")
     public Delivery addNewDelivery(@RequestBody NewDeliveryDTO newDeliveryDTO) throws UserNotFoundException {
-        return deliveryService.addDelivery(newDeliveryDTO, getUserNameFromSecurityContextHolder());
+        return deliveryService.addDelivery(newDeliveryDTO, securityUserController.getUsernameFromContext());
     }
 
     @GetMapping("/getPackFromClient/{id}")
     public void getPackFromClient(@PathVariable("id") long packId) throws EntityNotFoundException {
-        deliveryService.getPackFromClient(packId, getUserNameFromSecurityContextHolder());
+        deliveryService.getPackFromClient(packId, securityUserController.getUsernameFromContext());
     }
 
     @GetMapping("/deliveryPack/{id}")
     public void deliverPack(@PathVariable("id") long packId) throws EntityNotFoundException {
-        deliveryService.deliverPack(packId, getUserNameFromSecurityContextHolder());
-    }
-
-    private String getUserNameFromSecurityContextHolder() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            return ((UserDetails) principal).getUsername();
-        } else if (principal instanceof User) {
-            return ((User) principal).getUsername();
-        } else {
-            return principal.toString();
-        }
+        deliveryService.deliverPack(packId, securityUserController.getUsernameFromContext());
     }
 }

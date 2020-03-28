@@ -18,11 +18,11 @@ import pl.ug.citycourier.internal.security.entity.Role;
 import pl.ug.citycourier.internal.user.User;
 import pl.ug.citycourier.internal.user.UserNotFoundException;
 import pl.ug.citycourier.internal.user.UserRepository;
+import pl.ug.citycourier.internal.user.UserService;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -37,13 +37,13 @@ class DeliveryServiceTest {
     @Mock
     private DeliveryRepository deliveryRepository;
     @Mock
-    private UserRepository userRepository;
-    @Mock
     private PackRepository packRepository;
     @Mock
     private PackService packService;
     @Mock
     private LocationService locationService;
+    @Mock
+    private UserService userService;
 
     @Mock
     private NewDeliveryDTO newDeliveryDTO;
@@ -57,7 +57,7 @@ class DeliveryServiceTest {
     @Test
     void addDelivery() throws UserNotFoundException {
         String userName = "name";
-        when(userRepository.findByUsername(userName)).thenReturn(Optional.of(user));
+        when(userService.getCourierFromUsername(userName)).thenReturn(user);
 
         testee.addDelivery(newDeliveryDTO, userName);
 
@@ -65,9 +65,9 @@ class DeliveryServiceTest {
     }
 
     @Test
-    void addDelivery_userNotFound_shouldThrowException() {
+    void addDelivery_userNotFound_shouldThrowException() throws UserNotFoundException {
         String userName = "name";
-        when(userRepository.findByUsername(userName)).thenReturn(Optional.empty());
+        when(userService.getCourierFromUsername(userName)).thenThrow(UserNotFoundException.class);
 
         assertThrows(UserNotFoundException.class,
                 () -> testee.addDelivery(newDeliveryDTO, userName));
@@ -78,14 +78,13 @@ class DeliveryServiceTest {
     @Test
     void getPackFromClient() throws EntityNotFoundException {
         long packId = 1L;
-        String username = "name";
+        String userName = "name";
 
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
-        when(user.getRole()).thenReturn(new Role(1, RoleName.COURIER));
+        when(userService.getCourierFromUsername(userName)).thenReturn(user);
         when(packRepository.findById(packId)).thenReturn(Optional.of(pack));
         when(deliveryRepository.findByPack(pack)).thenReturn(Optional.of(delivery));
 
-        testee.getPackFromClient(packId, username);
+        testee.getPackFromClient(packId, userName);
 
         verify(delivery).setCourier(user);
         verify(delivery).setGetPackDate(any(LocalDateTime.class));
@@ -93,29 +92,28 @@ class DeliveryServiceTest {
 
 
     @Test
-    void getPackFromClient_courierNotFound() {
+    void getPackFromClient_courierNotFound() throws UserNotFoundException {
         long packId = 1L;
-        String username = "name";
+        String userName = "name";
 
-        when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+        when(userService.getCourierFromUsername(userName)).thenThrow(UserNotFoundException.class);
 
         assertThrows(UserNotFoundException.class,
-                () -> testee.getPackFromClient(packId, username));
+                () -> testee.getPackFromClient(packId, userName));
 
         verify(delivery, times(0)).setCourier(user);
         verify(delivery, times(0)).setGetPackDate(any(LocalDateTime.class));
     }
 
     @Test
-    void getPackFromClient_userIsNotACourier() {
+    void getPackFromClient_userIsNotACourier() throws UserNotFoundException {
         long packId = 1L;
-        String username = "name";
+        String userName = "name";
 
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
-        when(user.getRole()).thenReturn(new Role(1, RoleName.CLIENT));
+        when(userService.getCourierFromUsername(userName)).thenThrow(BadCredentialsException.class);
 
         assertThrows(BadCredentialsException.class,
-                () -> testee.getPackFromClient(packId, username));
+                () -> testee.getPackFromClient(packId, userName));
 
         verify(delivery, times(0)).setCourier(user);
         verify(delivery, times(0)).setGetPackDate(any(LocalDateTime.class));
@@ -123,33 +121,31 @@ class DeliveryServiceTest {
 
 
     @Test
-    void getPackFromClient_packNotFound() {
+    void getPackFromClient_packNotFound() throws UserNotFoundException {
         long packId = 1L;
-        String username = "name";
+        String userName = "name";
 
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
-        when(user.getRole()).thenReturn(new Role(1, RoleName.COURIER));
+        when(userService.getCourierFromUsername(userName)).thenReturn(user);
         when(packRepository.findById(packId)).thenReturn(Optional.empty());
 
         assertThrows(PackNotFoundException.class,
-                () -> testee.getPackFromClient(packId, username));
+                () -> testee.getPackFromClient(packId, userName));
 
         verify(delivery, times(0)).setCourier(user);
         verify(delivery, times(0)).setGetPackDate(any(LocalDateTime.class));
     }
 
     @Test
-    void getPackFromClient_deliveryNotFound() {
+    void getPackFromClient_deliveryNotFound() throws UserNotFoundException {
         long packId = 1L;
-        String username = "name";
+        String userName = "name";
 
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
-        when(user.getRole()).thenReturn(new Role(1, RoleName.COURIER));
+        when(userService.getCourierFromUsername(userName)).thenReturn(user);
         when(packRepository.findById(packId)).thenReturn(Optional.of(pack));
         when(deliveryRepository.findByPack(pack)).thenReturn(Optional.empty());
 
         assertThrows(DeliveryNotFoundException.class,
-                () -> testee.getPackFromClient(packId, username));
+                () -> testee.getPackFromClient(packId, userName));
 
         verify(delivery, times(0)).setCourier(user);
         verify(delivery, times(0)).setGetPackDate(any(LocalDateTime.class));
@@ -159,74 +155,70 @@ class DeliveryServiceTest {
     @Test
     void deliverPack() throws EntityNotFoundException {
         long packId = 1L;
-        String username = "name";
+        String userName = "name";
 
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
-        when(user.getRole()).thenReturn(new Role(1, RoleName.COURIER));
+        when(userService.getCourierFromUsername(userName)).thenReturn(user);
         when(packRepository.findById(packId)).thenReturn(Optional.of(pack));
         when(deliveryRepository.findByPack(pack)).thenReturn(Optional.of(delivery));
 
-        testee.deliverPack(packId, username);
+        testee.deliverPack(packId, userName);
 
         verify(delivery).setDeliverPackDate(any(LocalDateTime.class));
     }
 
 
     @Test
-    void deliverPack_courierNotFound() {
+    void deliverPack_courierNotFound() throws UserNotFoundException {
         long packId = 1L;
-        String username = "name";
+        String userName = "name";
 
-        when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+        when(userService.getCourierFromUsername(userName)).thenThrow(UserNotFoundException.class);
 
         assertThrows(UserNotFoundException.class,
-                () -> testee.deliverPack(packId, username));
+                () -> testee.deliverPack(packId, userName));
 
         verify(delivery, times(0)).setDeliverPackDate(any(LocalDateTime.class));
     }
 
     @Test
-    void deliverPack_userIsNotACourier() {
+    void deliverPack_userIsNotACourier() throws UserNotFoundException {
         long packId = 1L;
-        String username = "name";
+        String userName = "name";
 
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
-        when(user.getRole()).thenReturn(new Role(1, RoleName.CLIENT));
+        when(userService.getCourierFromUsername(userName)).thenThrow(BadCredentialsException.class);
 
         assertThrows(BadCredentialsException.class,
-                () -> testee.deliverPack(packId, username));
+                () -> testee.deliverPack(packId, userName));
 
         verify(delivery, times(0)).setDeliverPackDate(any(LocalDateTime.class));
     }
 
 
     @Test
-    void deliverPack_packNotFound() {
+    void deliverPack_packNotFound() throws UserNotFoundException {
         long packId = 1L;
-        String username = "name";
+        String userName = "name";
 
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
-        when(user.getRole()).thenReturn(new Role(1, RoleName.COURIER));
+        when(userService.getCourierFromUsername(userName)).thenReturn(user);
         when(packRepository.findById(packId)).thenReturn(Optional.empty());
 
         assertThrows(PackNotFoundException.class,
-                () -> testee.deliverPack(packId, username));
+                () -> testee.deliverPack(packId, userName));
 
         verify(delivery, times(0)).setDeliverPackDate(any(LocalDateTime.class));
     }
 
     @Test
-    void deliverPack_deliveryNotFound() {
+    void deliverPack_deliveryNotFound() throws UserNotFoundException {
         long packId = 1L;
-        String username = "name";
+        String userName = "name";
 
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
-        when(user.getRole()).thenReturn(new Role(1, RoleName.COURIER));
+        when(userService.getCourierFromUsername(userName)).thenReturn(user);
         when(packRepository.findById(packId)).thenReturn(Optional.of(pack));
         when(deliveryRepository.findByPack(pack)).thenReturn(Optional.empty());
 
         assertThrows(DeliveryNotFoundException.class,
-                () -> testee.deliverPack(packId, username));
+                () -> testee.deliverPack(packId, userName));
 
         verify(delivery, times(0)).setDeliverPackDate(any(LocalDateTime.class));
     }
