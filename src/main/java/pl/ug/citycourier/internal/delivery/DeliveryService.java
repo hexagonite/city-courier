@@ -15,6 +15,7 @@ import pl.ug.citycourier.internal.security.boundary.RoleName;
 import pl.ug.citycourier.internal.user.User;
 import pl.ug.citycourier.internal.user.UserNotFoundException;
 import pl.ug.citycourier.internal.user.UserRepository;
+import pl.ug.citycourier.internal.user.UserService;
 
 import java.time.LocalDateTime;
 
@@ -27,21 +28,24 @@ public class DeliveryService {
 
     private PackService packService;
     private LocationService locationService;
+    private UserService userService;
 
     @Autowired
     public DeliveryService(DeliveryRepository deliveryRepository, UserRepository userRepository,
-                           PackService packService, LocationService locationService, PackRepository packRepository) {
+                           PackService packService, LocationService locationService, PackRepository packRepository,
+                           UserService userService) {
         this.deliveryRepository = deliveryRepository;
         this.userRepository = userRepository;
         this.packService = packService;
         this.locationService = locationService;
         this.packRepository = packRepository;
+        this.userService = userService;
     }
 
     @Transactional
     public Delivery addDelivery(NewDeliveryDTO newDeliveryDTO, String userName) throws UserNotFoundException {
         Pack pack = packService.createPackFromDTO(newDeliveryDTO.createPackDTO());
-        User client = userRepository.findByUsername(userName).orElseThrow(UserNotFoundException::new);
+        User client = userService.getCourierFromUsername(userName);
         Location start = locationService.findOrCreateLocationByCoordinate(newDeliveryDTO.getStartCoordinates());
         Location destination = locationService.findOrCreateLocationByCoordinate(newDeliveryDTO.getEndCoordinates());
         Delivery newDelivery = DeliveryBuilder.aDelivery()
@@ -55,18 +59,10 @@ public class DeliveryService {
 
     @Transactional
     public void getPackFromClient(long packId, String userName) throws EntityNotFoundException {
-        User courier = getCourierFromUsername(userName);
+        User courier = userService.getCourierFromUsername(userName);
         Delivery delivery = getDeliveryByPackId(packId);
         delivery.setCourier(courier);
         delivery.setGetPackDate(LocalDateTime.now());
-    }
-
-    private User getCourierFromUsername(String userName) throws EntityNotFoundException {
-        User courier = userRepository.findByUsername(userName).orElseThrow(UserNotFoundException::new);
-        if (courier.getRole().getName() == RoleName.COURIER) {
-            return courier;
-        }
-        throw new BadCredentialsException("You need to be courier to get pack from client");
     }
 
     private Delivery getDeliveryByPackId(long packId) throws EntityNotFoundException {
@@ -81,12 +77,12 @@ public class DeliveryService {
         delivery.setDeliverPackDate(LocalDateTime.now());
     }
 
-    private void checkIfUserIsCourier(String username) throws EntityNotFoundException {
+    private void checkIfUserIsCourier(String username) throws UserNotFoundException {
         try {
-            getCourierFromUsername(username);
+            userService.getCourierFromUsername(username);
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException("You need to be courier to deliver pack to client");
-        } catch (EntityNotFoundException e) {
+        } catch (UserNotFoundException e) {
             throw e;
         }
     }
