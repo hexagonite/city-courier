@@ -23,4 +23,8 @@ public class UserService {
         throw new BadCredentialsException("You need to be courier to get pack from client");
     }
 
+    public Iterable<User> getAvailableCouriers() {
+        return userRepository.findByIsAvailable(true);
+    }
+
 }

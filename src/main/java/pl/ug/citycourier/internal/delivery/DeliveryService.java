@@ -86,4 +86,8 @@ public class DeliveryService {
             throw e;
         }
     }
+
+    public Iterable<Delivery> getAvailableDeliveries() {
+        return deliveryRepository.findByCourierIsNull();
+    }
 }
