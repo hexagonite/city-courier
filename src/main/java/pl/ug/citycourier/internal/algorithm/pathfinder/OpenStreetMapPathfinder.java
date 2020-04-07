@@ -1,16 +1,17 @@
 package pl.ug.citycourier.internal.algorithm.pathfinder;
 
+import pl.ug.citycourier.internal.algorithm.dto.Path;
 import pl.ug.citycourier.internal.location.Location;
 
-public class OpenStreetMapPathfinder implements Pathfinder{
+public class OpenStreetMapPathfinder extends Pathfinder {
     //TODO
     @Override
-    public double findShortestDistanceBetweenTwoLocations(Location start, Location finish) {
+    public Path findShortestPath(Location start, Location finish) {
         try {
             throw new Exception("Not implemented!");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        return new Path(0.0);
     }
 }

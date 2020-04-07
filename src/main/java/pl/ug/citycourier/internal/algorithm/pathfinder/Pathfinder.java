@@ -1,9 +1,18 @@
 package pl.ug.citycourier.internal.algorithm.pathfinder;
 
+import pl.ug.citycourier.internal.algorithm.dto.Path;
 import pl.ug.citycourier.internal.location.Location;
 
-public interface Pathfinder {
+public abstract class Pathfinder {
 
-    double findShortestDistanceBetweenTwoLocations(Location start, Location finish);
+    public abstract Path findShortestPath(Location start, Location finish);
+
+    public Path sumPaths(Path... paths) {
+        Path sum = new Path();
+        for (Path path : paths) {
+            sum.sumWithPath(path);
+        }
+        return sum;
+    }
 
 }

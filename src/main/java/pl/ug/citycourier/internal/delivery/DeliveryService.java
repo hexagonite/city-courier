@@ -11,13 +11,13 @@ import pl.ug.citycourier.internal.pack.Pack;
 import pl.ug.citycourier.internal.pack.PackNotFoundException;
 import pl.ug.citycourier.internal.pack.PackRepository;
 import pl.ug.citycourier.internal.pack.PackService;
-import pl.ug.citycourier.internal.security.boundary.RoleName;
 import pl.ug.citycourier.internal.user.User;
 import pl.ug.citycourier.internal.user.UserNotFoundException;
 import pl.ug.citycourier.internal.user.UserRepository;
 import pl.ug.citycourier.internal.user.UserService;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class DeliveryService {
@@ -87,7 +87,7 @@ public class DeliveryService {
         }
     }
 
-    public Iterable<Delivery> getAvailableDeliveries() {
+    public List<Delivery> getAvailableDeliveries() {
         return deliveryRepository.findByCourierIsNull();
     }
 }

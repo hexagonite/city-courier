@@ -29,7 +29,7 @@ public class User {
     @JsonIgnore
     @ManyToOne
     private Role role;
-    private boolean isAvailable;
+    private Status status;
 
     @JsonIgnore
     @OneToMany(mappedBy = "client")
@@ -103,12 +103,12 @@ public class User {
         this.role = role;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Set<Delivery> getSentDeliveries() {
