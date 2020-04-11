@@ -29,6 +29,7 @@ public class User {
     @JsonIgnore
     @ManyToOne
     private Role role;
+    private Status status;
 
     @JsonIgnore
     @OneToMany(mappedBy = "client")
@@ -100,6 +101,14 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Set<Delivery> getSentDeliveries() {

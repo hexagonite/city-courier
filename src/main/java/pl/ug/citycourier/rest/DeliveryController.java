@@ -1,14 +1,11 @@
 package pl.ug.citycourier.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import pl.ug.citycourier.internal.common.EntityNotFoundException;
 import pl.ug.citycourier.internal.delivery.Delivery;
 import pl.ug.citycourier.internal.delivery.DeliveryService;
 import pl.ug.citycourier.internal.delivery.NewDeliveryDTO;
-import pl.ug.citycourier.internal.user.User;
 import pl.ug.citycourier.internal.user.UserNotFoundException;
 
 @RestController

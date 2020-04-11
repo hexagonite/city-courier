@@ -5,6 +5,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import pl.ug.citycourier.internal.security.boundary.RoleName;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -21,6 +23,10 @@ public class UserService {
             return courier;
         }
         throw new BadCredentialsException("You need to be courier to get pack from client");
+    }
+
+    public List<User> findCouriersByStatus(Status status) {
+        return userRepository.findByStatus(status);
     }
 
 }
