@@ -1,12 +1,10 @@
 package pl.ug.citycourier.internal.algorithm.dto;
 
-import pl.ug.citycourier.internal.delivery.Delivery;
-
 public class PathToDelivery {
     private Path path;
-    private Delivery delivery;
+    private DeliveryInAlgorithm delivery;
 
-    public PathToDelivery(Path path, Delivery delivery) {
+    public PathToDelivery(Path path, DeliveryInAlgorithm delivery) {
         this.path = path;
         this.delivery = delivery;
     }
@@ -19,11 +17,11 @@ public class PathToDelivery {
         this.path = path;
     }
 
-    public Delivery getDelivery() {
+    public DeliveryInAlgorithm getDelivery() {
         return delivery;
     }
 
-    public void setDelivery(Delivery delivery) {
+    public void setDelivery(DeliveryInAlgorithm delivery) {
         this.delivery = delivery;
     }
 }
