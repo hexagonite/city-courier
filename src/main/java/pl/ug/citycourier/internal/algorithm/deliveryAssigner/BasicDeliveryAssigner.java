@@ -1,17 +1,12 @@
 package pl.ug.citycourier.internal.algorithm.deliveryAssigner;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import pl.ug.citycourier.internal.algorithm.courierLocationFinder.CourierLocationFinder;
-import pl.ug.citycourier.internal.algorithm.dto.CourierWithLocation;
-import pl.ug.citycourier.internal.algorithm.dto.DeliveryAssignerCourier;
-import pl.ug.citycourier.internal.algorithm.dto.Path;
-import pl.ug.citycourier.internal.algorithm.dto.PathToDelivery;
+import pl.ug.citycourier.internal.algorithm.dto.*;
 import pl.ug.citycourier.internal.algorithm.exception.InternalAlgorithmException;
 import pl.ug.citycourier.internal.algorithm.pathfinder.LinearPathfinder;
 import pl.ug.citycourier.internal.algorithm.pathfinder.Pathfinder;
-import pl.ug.citycourier.internal.delivery.Delivery;
 import pl.ug.citycourier.internal.delivery.DeliveryService;
 import pl.ug.citycourier.internal.location.Location;
 import pl.ug.citycourier.internal.user.Status;
@@ -35,7 +30,7 @@ public class BasicDeliveryAssigner implements DeliveryAssigner {
     private Pathfinder pathfinder;
     private CourierLocationFinder courierLocationFinder;
 
-    private List<Delivery> deliveries = new ArrayList<>();
+    private List<DeliveryInAlgorithm> deliveries = new ArrayList<>();
     private List<DeliveryAssignerCourier> couriers = new ArrayList<>();
 
     @Autowired
@@ -72,7 +67,10 @@ public class BasicDeliveryAssigner implements DeliveryAssigner {
 
     private boolean prepareData() {
         List<User> availableCouriers = userService.findCouriersByStatus(Status.AVAILABLE);
-        deliveries = deliveryService.getAvailableDeliveries();
+        deliveries = deliveryService.getAvailableDeliveries()
+                .stream()
+                .map(DeliveryInAlgorithm::new)
+                .collect(Collectors.toList());
         if (deliveries.isEmpty() || availableCouriers.isEmpty()) {
             return false;
         }
@@ -83,7 +81,7 @@ public class BasicDeliveryAssigner implements DeliveryAssigner {
 
     private void findDistancesBetweenAllCouriersAndAllDeliveries() {
         for (DeliveryAssignerCourier courier : couriers) {
-            for (Delivery delivery : deliveries) {
+            for (DeliveryInAlgorithm delivery : deliveries) {
                 Location courierStart = courier.getLocation();
                 Location deliveryStart = delivery.getStart();
                 Path path = pathfinder.findShortestPath(courierStart, deliveryStart);
@@ -108,23 +106,23 @@ public class BasicDeliveryAssigner implements DeliveryAssigner {
                 IntStream.range(0, couriers.size()).boxed().collect(Collectors.toCollection(ArrayList::new));
         do {
             Path minPath = new Path(Double.MAX_VALUE);
-            Delivery courierFirstDelivery = null;
+            DeliveryInAlgorithm courierFirstDelivery = null;
             Integer assigneeIndex = null;
             for (int courierIndex : couriersLeftIndices) {
                 if (doesCourierHaveEmptyList(courierIndex)) {
                     couriersLeftIndices.remove(assigneeIndex);
                 } else {
-                    var pair = couriers.get(courierIndex).getNearestDelivery();
-                    if (pair.getPath().equals(minPath)) {
-                        minPath = pair.getPath();
-                        courierFirstDelivery = pair.getDelivery();
+                    var path = couriers.get(courierIndex).getNearestPathToDelivery();
+                    if (path.getPath().equals(minPath)) {
+                        minPath = path.getPath();
+                        courierFirstDelivery = path.getDelivery();
                         assigneeIndex = courierIndex;
                     }
                 }
             }
             assertResults(assigneeIndex, courierFirstDelivery);
             couriers.get(assigneeIndex).assignDelivery(new PathToDelivery(minPath, courierFirstDelivery));
-            removeAlreadyAssignedDelivery(courierFirstDelivery);
+            courierFirstDelivery.setAssigned(true);
             couriersLeftIndices.remove(assigneeIndex);
         } while (!couriersLeftIndices.isEmpty());
     }
@@ -133,15 +131,9 @@ public class BasicDeliveryAssigner implements DeliveryAssigner {
         return couriers.get(courierIndex).getPathsFromCourierStartToDeliveryStarts().isEmpty();
     }
 
-    private void assertResults(Integer assigneeIndex, Delivery courierFirstDelivery) throws InternalAlgorithmException {
+    private void assertResults(Integer assigneeIndex, DeliveryInAlgorithm courierFirstDelivery) throws InternalAlgorithmException {
         if (assigneeIndex == null || courierFirstDelivery == null) {
             throw new InternalAlgorithmException("Invalid assignee index");
-        }
-    }
-
-    private void removeAlreadyAssignedDelivery(Delivery delivery) {
-        for (var courier : couriers) {
-            courier.removeDelivery(delivery);
         }
     }
 
@@ -154,7 +146,7 @@ public class BasicDeliveryAssigner implements DeliveryAssigner {
                 var courierSecondDelivery =
                         Collections.min(shortestPathsToSecondDeliveries, Comparator.comparing(PathToDelivery::getPath));
                 courier.assignDelivery(courierSecondDelivery);
-                removeAlreadyAssignedDelivery(courierSecondDelivery.getDelivery());
+                courierSecondDelivery.getDelivery().setAssigned(true);
             }
         }
     }
@@ -167,16 +159,15 @@ public class BasicDeliveryAssigner implements DeliveryAssigner {
         while (it.hasNext() || i < CHOICES_FOR_SECOND_DELIVERY_AMOUNT) {
             var entry = it.next();
             var locationAmount = entry.getValue().size();
-            if (locationAmount == 1) {
-                potentialSecondDeliveries.add(new PathToDelivery(entry.getKey(), entry.getValue().get(0)));
-                i++;
-            } else {
-                int j = 0;
-                while (j < locationAmount && i < CHOICES_FOR_SECOND_DELIVERY_AMOUNT) {
-                    potentialSecondDeliveries.add(new PathToDelivery(entry.getKey(), entry.getValue().get(j)));
+            int listIndex = 0;
+            while (listIndex < locationAmount && i < CHOICES_FOR_SECOND_DELIVERY_AMOUNT) {
+                if (entry.getValue().get(i).isAssigned()) {
+                    courier.removePathToDelivery(entry, listIndex);
+                } else {
+                    potentialSecondDeliveries.add(new PathToDelivery(entry.getKey(), entry.getValue().get(listIndex)));
                     i++;
-                    j++;
                 }
+                listIndex++;
             }
         }
         return potentialSecondDeliveries;
