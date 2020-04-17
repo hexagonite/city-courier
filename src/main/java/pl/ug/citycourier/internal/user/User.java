@@ -22,7 +22,6 @@ public class User {
     private String email;
     @NotBlank(message = "Name is mandatory")
     private String name;
-    private String secondName;
     private String password;
     @NotBlank(message = "Surname is mandatory")
     private String surname;
@@ -69,14 +68,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
     }
 
     public String getSurname() {
