@@ -1,6 +1,7 @@
 package pl.ug.citycourier.internal.algorithm.dto;
 
 import pl.ug.citycourier.internal.algorithm.exception.InternalAlgorithmException;
+import pl.ug.citycourier.internal.coordinate.CoordinatePairDTO;
 import pl.ug.citycourier.internal.location.Location;
 import pl.ug.citycourier.internal.user.User;
 
@@ -8,13 +9,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CourierInAlgorithm {
-    private CourierWithLocation courierWithLocation;
+    private CourierWithCoordinates courierWithCoordinates;
     private ShortestCourierPath shortestCourierPath;
     private Queue<PathToDelivery> assignedDeliveries = new PriorityQueue<>();
     private NavigableMap<Path, List<DeliveryInAlgorithm>> pathsFromCourierStartToDeliveryStarts = new TreeMap<>();
 
-    public CourierInAlgorithm(CourierWithLocation courierWithLocation) {
-        this.courierWithLocation = courierWithLocation;
+    public CourierInAlgorithm(CourierWithCoordinates courierWithCoordinates) {
+        this.courierWithCoordinates = courierWithCoordinates;
     }
 
     public void assignDelivery(PathToDelivery pathToDelivery) {
@@ -71,11 +72,11 @@ public class CourierInAlgorithm {
     }
 
     public User getCourier() {
-        return courierWithLocation.getCourier();
+        return courierWithCoordinates.getCourier();
     }
 
-    public Location getLocation() {
-        return courierWithLocation.getLocation();
+    public CoordinatePairDTO getCoordinates() {
+        return courierWithCoordinates.getCoordinatePairDTO();
     }
 
     public PathToDelivery getFirstDelivery() {

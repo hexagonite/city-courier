@@ -42,13 +42,13 @@ public class LocationServiceTest {
 
     @BeforeEach
     public void init() {
-        when(coordinatePairDTO.getLongitute()).thenReturn(10.0D);
+        when(coordinatePairDTO.getLongitude()).thenReturn(10.0D);
         when(coordinatePairDTO.getLatitude()).thenReturn(10.0D);
     }
 
     @Test
     public void findOrCreateLocationByCoordinate_exists() {
-        when(coordinatePairRepository.findByLatitudeEqualsAndLongitudeEquals(coordinatePairDTO.getLongitute(), coordinatePairDTO.getLatitude()))
+        when(coordinatePairRepository.findByLatitudeEqualsAndLongitudeEquals(coordinatePairDTO.getLongitude(), coordinatePairDTO.getLatitude()))
                 .thenReturn(Optional.of(coordinatePair));
         when(coordinatePair.getLocation()).thenReturn(location);
 
@@ -60,7 +60,7 @@ public class LocationServiceTest {
 
     @Test
     public void findOrCreateLocationByCoordinate_notExists() {
-        when(coordinatePairRepository.findByLatitudeEqualsAndLongitudeEquals(coordinatePairDTO.getLongitute(), coordinatePairDTO.getLatitude()))
+        when(coordinatePairRepository.findByLatitudeEqualsAndLongitudeEquals(coordinatePairDTO.getLongitude(), coordinatePairDTO.getLatitude()))
                 .thenReturn(Optional.empty());
         when(locationCreator.createLocationFromCoordinatePair(coordinatePairDTO))
                 .thenReturn(location);
