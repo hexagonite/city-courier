@@ -11,6 +11,7 @@ import pl.ug.citycourier.internal.algorithm.dto.DeliveryInAlgorithm;
 import pl.ug.citycourier.internal.algorithm.dto.Path;
 import pl.ug.citycourier.internal.algorithm.exception.InternalAlgorithmException;
 import pl.ug.citycourier.internal.algorithm.pathfinder.Pathfinder;
+import pl.ug.citycourier.internal.coordinate.CoordinatePairDTO;
 import pl.ug.citycourier.internal.courier.CourierJob;
 import pl.ug.citycourier.internal.location.Location;
 
@@ -56,7 +57,7 @@ public class BasicDeliveryAssigner implements DeliveryAssigner {
                                                                  List<CourierInAlgorithm> couriers) {
         for (CourierInAlgorithm courier : couriers) {
             for (DeliveryInAlgorithm delivery : deliveries) {
-                Location courierStart = courier.getLocation();
+                CoordinatePairDTO courierStart = courier.getCoordinates();
                 Location deliveryStart = delivery.getStart();
                 Path path = pathfinder.findShortestPath(courierStart, deliveryStart);
                 courier.addPath(path, delivery);

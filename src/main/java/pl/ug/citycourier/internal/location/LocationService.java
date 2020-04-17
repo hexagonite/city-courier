@@ -24,7 +24,7 @@ public class LocationService {
 
     public Location findOrCreateLocationByCoordinate(CoordinatePairDTO coordinatePairDTO) {
         Optional<CoordinatePair> coordinates = coordinatePairRepository
-                .findByLatitudeEqualsAndLongitudeEquals(coordinatePairDTO.getLatitude(), coordinatePairDTO.getLongitute());
+                .findByLatitudeEqualsAndLongitudeEquals(coordinatePairDTO.getLatitude(), coordinatePairDTO.getLongitude());
         if (coordinates.isPresent()) {
             return coordinates.get().getLocation();
         }
