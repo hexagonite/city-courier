@@ -7,12 +7,4 @@ public abstract class Pathfinder {
 
     public abstract Path findShortestPath(Location start, Location finish);
 
-    public Path sumPaths(Path... paths) {
-        Path sum = new Path();
-        for (Path path : paths) {
-            sum.sumWithPath(path);
-        }
-        return sum;
-    }
-
 }

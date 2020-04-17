@@ -7,12 +7,13 @@ import pl.ug.citycourier.internal.user.User;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class DeliveryAssignerCourier {
+public class CourierInAlgorithm {
     private CourierWithLocation courierWithLocation;
+    private ShortestCourierPath shortestCourierPath;
     private Queue<PathToDelivery> assignedDeliveries = new PriorityQueue<>();
     private NavigableMap<Path, List<DeliveryInAlgorithm>> pathsFromCourierStartToDeliveryStarts = new TreeMap<>();
 
-    public DeliveryAssignerCourier(CourierWithLocation courierWithLocation) {
+    public CourierInAlgorithm(CourierWithLocation courierWithLocation) {
         this.courierWithLocation = courierWithLocation;
     }
 
@@ -25,7 +26,7 @@ public class DeliveryAssignerCourier {
         pathsFromCourierStartToDeliveryStarts.get(path).add(delivery);
     }
 
-    public PathToDelivery getNearestPathToDelivery() throws InternalAlgorithmException {
+    public PathToDelivery getNearestPathToDeliveryWithRemoval() throws InternalAlgorithmException {
         for (Map.Entry<Path, List<DeliveryInAlgorithm>> entry : pathsFromCourierStartToDeliveryStarts.entrySet()) {
             var entryDeliveries = entry.getValue();
             for (int i = 0; i < entryDeliveries.size(); i++) {
@@ -39,7 +40,29 @@ public class DeliveryAssignerCourier {
         throw new InternalAlgorithmException("Nearest delivery was not found!");
     }
 
-    public void removePathToDelivery(Map.Entry<Path, List<DeliveryInAlgorithm>> entry, int index) {
+    public List<PathToDelivery> getNearestPathsToDeliveriesWithRemoval(int maxResults) {
+        List<PathToDelivery> pathsToDeliveries = new ArrayList<>();
+        var set = getPathsFromCourierStartToDeliveryStarts().entrySet();
+        var it = set.iterator();
+        int i = 0;
+        while (it.hasNext() || i < maxResults) {
+            var entry = it.next();
+            var locationAmount = entry.getValue().size();
+            int listIndex = 0;
+            while (listIndex < locationAmount && i < maxResults) {
+                if (entry.getValue().get(i).isAssigned()) {
+                    removePathToDelivery(entry, listIndex);
+                } else {
+                    pathsToDeliveries.add(new PathToDelivery(entry.getKey(), entry.getValue().get(listIndex)));
+                    i++;
+                }
+                listIndex++;
+            }
+        }
+        return pathsToDeliveries;
+    }
+
+    private void removePathToDelivery(Map.Entry<Path, List<DeliveryInAlgorithm>> entry, int index) {
         var entryDeliveries = entry.getValue();
         entryDeliveries.remove(index);
         if (entryDeliveries.isEmpty()) {
@@ -59,9 +82,17 @@ public class DeliveryAssignerCourier {
         return assignedDeliveries.peek();
     }
 
+    public ShortestCourierPath getShortestCourierPath() {
+        return shortestCourierPath;
+    }
+
+    public void setShortestCourierPath(ShortestCourierPath shortestCourierPath) {
+        this.shortestCourierPath = shortestCourierPath;
+    }
+
     public List<DeliveryInAlgorithm> getAssignedDeliveries() {
         return assignedDeliveries.stream()
-                .map(PathToDelivery::getDelivery)
+                .map(PathToDelivery::getDeliveryInAlgorithm)
                 .collect(Collectors.toList());
     }
 

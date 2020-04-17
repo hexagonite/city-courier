@@ -2,15 +2,18 @@ package pl.ug.citycourier.internal.algorithm.dto;
 
 import java.util.Objects;
 
-public class Path implements Comparable<Path>{
+public class Path implements Comparable<Path> {
     private Double distance;
 
     public Path(Double distance) {
         this.distance = distance;
     }
 
-    public Path() {
+    public Path(Path... paths) {
         this.distance = 0.0;
+        for (Path path : paths) {
+            this.distance += path.distance;
+        }
     }
 
     public Double getDistance() {
@@ -19,10 +22,6 @@ public class Path implements Comparable<Path>{
 
     public void setDistance(Double distance) {
         this.distance = distance;
-    }
-
-    public void sumWithPath(Path path) {
-        this.distance += path.distance;
     }
 
     @Override
