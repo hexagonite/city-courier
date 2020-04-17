@@ -1,12 +1,12 @@
 package pl.ug.citycourier.internal.algorithm.dto;
 
-public class PathToDelivery {
+public class PathToDelivery implements Comparable<PathToDelivery>{
     private Path path;
-    private DeliveryInAlgorithm delivery;
+    private DeliveryInAlgorithm deliveryInAlgorithm;
 
-    public PathToDelivery(Path path, DeliveryInAlgorithm delivery) {
+    public PathToDelivery(Path path, DeliveryInAlgorithm deliveryInAlgorithm) {
         this.path = path;
-        this.delivery = delivery;
+        this.deliveryInAlgorithm = deliveryInAlgorithm;
     }
 
     public Path getPath() {
@@ -17,11 +17,16 @@ public class PathToDelivery {
         this.path = path;
     }
 
-    public DeliveryInAlgorithm getDelivery() {
-        return delivery;
+    public DeliveryInAlgorithm getDeliveryInAlgorithm() {
+        return deliveryInAlgorithm;
     }
 
-    public void setDelivery(DeliveryInAlgorithm delivery) {
-        this.delivery = delivery;
+    public void setDeliveryInAlgorithm(DeliveryInAlgorithm deliveryInAlgorithm) {
+        this.deliveryInAlgorithm = deliveryInAlgorithm;
+    }
+
+    @Override
+    public int compareTo(PathToDelivery pathToDelivery) {
+        return this.path.compareTo(pathToDelivery.path);
     }
 }
