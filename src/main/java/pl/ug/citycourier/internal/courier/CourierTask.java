@@ -19,6 +19,9 @@ public class CourierTask {
         this.packDescription = delivery.getPack().getDescription();
     }
 
+    public CourierTask() {
+    }
+
     public Location getLocation() {
         return location;
     }

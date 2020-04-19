@@ -22,6 +22,7 @@ public class BasicSecondDeliveryAssigner implements SecondDeliveryAssigner {
         this.possiblePathsFinder = possiblePathsFinder;
     }
 
+    @Override
     public void assignSecondDeliveries(List<CourierInAlgorithm> couriers) {
         for (var courier : couriers) {
             List<PathToDelivery> potentialDeliveries =

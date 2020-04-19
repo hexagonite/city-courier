@@ -2,6 +2,7 @@ package pl.ug.citycourier.internal.algorithm.possiblePathsFinder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import pl.ug.citycourier.internal.algorithm.dto.*;
 import pl.ug.citycourier.internal.algorithm.pathfinder.Pathfinder;
 
@@ -14,12 +15,13 @@ import static java.util.Comparator.comparing;
 import static pl.ug.citycourier.internal.courier.CourierTaskType.DELIVER_PACK;
 import static pl.ug.citycourier.internal.courier.CourierTaskType.PICK_UP_PACK;
 
+@Component
 public class BasicPossiblePathsFinder implements PossiblePathsFinder {
 
     private Pathfinder pathfinder;
 
     @Autowired
-    public BasicPossiblePathsFinder(@Qualifier("LinearPathFinder") Pathfinder pathfinder) {
+    public BasicPossiblePathsFinder(@Qualifier("linearPathfinder") Pathfinder pathfinder) {
         this.pathfinder = pathfinder;
     }
 
@@ -28,6 +30,7 @@ public class BasicPossiblePathsFinder implements PossiblePathsFinder {
     // AF - delivery A finish
     // BS - delivery B start
     // BF - delivery B finish
+    @Override
     public ShortestCourierPath chooseShortestPossiblePath(CourierInAlgorithm courier, PathToDelivery pathToDelivery) {
         List<Path> paths = new ArrayList<>();
         var AS = courier.getFirstDelivery().getDeliveryInAlgorithm().getStart();

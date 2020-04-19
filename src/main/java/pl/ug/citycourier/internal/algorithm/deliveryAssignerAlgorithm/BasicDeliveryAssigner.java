@@ -34,7 +34,7 @@ public class BasicDeliveryAssigner implements DeliveryAssigner {
     private CourierJobCreator courierJobCreator;
 
     @Autowired
-    public BasicDeliveryAssigner(@Qualifier("LinearPathFinder") Pathfinder linearPathfinder,
+    public BasicDeliveryAssigner(@Qualifier("linearPathfinder") Pathfinder linearPathfinder,
                                  FirstDeliveryAssigner firstDeliveryAssigner,
                                  SecondDeliveryAssigner secondDeliveryAssigner,
                                  CourierJobCreator courierJobCreator) {
