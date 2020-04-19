@@ -5,7 +5,7 @@ import pl.ug.citycourier.internal.algorithm.dto.Path;
 import pl.ug.citycourier.internal.coordinate.CoordinatePairDTO;
 import pl.ug.citycourier.internal.location.Location;
 
-@Component
+@Component("linearPathfinder")
 public class LinearPathfinder implements Pathfinder {
 
     //Harvesine formula - optimised: https://stackoverflow.com/a/21623206/

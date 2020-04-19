@@ -5,7 +5,7 @@ import pl.ug.citycourier.internal.algorithm.dto.Path;
 import pl.ug.citycourier.internal.coordinate.CoordinatePairDTO;
 import pl.ug.citycourier.internal.location.Location;
 
-@Component
+@Component("openStreetMapPathfinder")
 public class OpenStreetMapPathfinder implements Pathfinder {
     //TODO
     @Override

@@ -1,5 +1,6 @@
 package pl.ug.citycourier.internal.algorithm.courierJobCreator;
 
+import org.springframework.stereotype.Component;
 import pl.ug.citycourier.internal.algorithm.dto.CourierInAlgorithm;
 import pl.ug.citycourier.internal.algorithm.dto.LocationWithType;
 import pl.ug.citycourier.internal.courier.CourierJob;
@@ -12,6 +13,7 @@ import java.util.Queue;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Component
 public class BasicCourierJobCreator implements CourierJobCreator {
 
     @Override

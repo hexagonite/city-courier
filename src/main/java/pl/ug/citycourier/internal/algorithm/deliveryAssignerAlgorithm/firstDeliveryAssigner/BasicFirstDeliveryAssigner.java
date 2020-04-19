@@ -13,9 +13,10 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Component
-public class BasicFirstDeliveryAssigner {
+public class BasicFirstDeliveryAssigner implements FirstDeliveryAssigner {
 
-    private void assignFirstDeliveries(List<CourierInAlgorithm> couriers) throws InternalAlgorithmException {
+    @Override
+    public void assignFirstDeliveries(List<CourierInAlgorithm> couriers) throws InternalAlgorithmException {
         List<Integer> couriersLeftIndices =
                 IntStream.range(0, couriers.size()).boxed().collect(Collectors.toCollection(ArrayList::new));
         do {
