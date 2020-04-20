@@ -34,8 +34,8 @@ public class Delivery {
     @JoinColumn(name = "destinationLocationId")
     private Location destination;
 
-    private LocalDateTime getPackDate;
-    private LocalDateTime deliverPackDate;
+    private LocalDateTime receivedAt;
+    private LocalDateTime deliveredAt;
 
     public long getId() {
         return id;
@@ -85,19 +85,19 @@ public class Delivery {
         this.destination = destination;
     }
 
-    public LocalDateTime getGetPackDate() {
-        return getPackDate;
+    public LocalDateTime getReceivedAt() {
+        return receivedAt;
     }
 
-    public void setGetPackDate(LocalDateTime getPackDate) {
-        this.getPackDate = getPackDate;
+    public void setReceivedAt(LocalDateTime receivedAt) {
+        this.receivedAt = receivedAt;
     }
 
-    public LocalDateTime getDeliverPackDate() {
-        return deliverPackDate;
+    public LocalDateTime getDeliveredAt() {
+        return deliveredAt;
     }
 
-    public void setDeliverPackDate(LocalDateTime deliverPackDate) {
-        this.deliverPackDate = deliverPackDate;
+    public void setDeliveredAt(LocalDateTime deliveredAt) {
+        this.deliveredAt = deliveredAt;
     }
 }

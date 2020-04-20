@@ -62,7 +62,7 @@ public class DeliveryService {
         User courier = userService.getCourierFromUsername(userName);
         Delivery delivery = getDeliveryByPackId(packId);
         delivery.setCourier(courier);
-        delivery.setGetPackDate(LocalDateTime.now());
+        delivery.setReceivedAt(LocalDateTime.now());
     }
 
     private Delivery getDeliveryByPackId(long packId) throws EntityNotFoundException {
@@ -74,7 +74,7 @@ public class DeliveryService {
     public void deliverPack(long packId, String username) throws EntityNotFoundException {
         checkIfUserIsCourier(username);
         Delivery delivery = getDeliveryByPackId(packId);
-        delivery.setDeliverPackDate(LocalDateTime.now());
+        delivery.setDeliveredAt(LocalDateTime.now());
     }
 
     private void checkIfUserIsCourier(String username) throws UserNotFoundException {

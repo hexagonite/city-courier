@@ -84,7 +84,7 @@ class DeliveryServiceTest {
         testee.getPackFromClient(packId, userName);
 
         verify(delivery).setCourier(user);
-        verify(delivery).setGetPackDate(any(LocalDateTime.class));
+        verify(delivery).setReceivedAt(any(LocalDateTime.class));
     }
 
 
@@ -99,7 +99,7 @@ class DeliveryServiceTest {
                 () -> testee.getPackFromClient(packId, userName));
 
         verify(delivery, times(0)).setCourier(user);
-        verify(delivery, times(0)).setGetPackDate(any(LocalDateTime.class));
+        verify(delivery, times(0)).setReceivedAt(any(LocalDateTime.class));
     }
 
     @Test
@@ -113,7 +113,7 @@ class DeliveryServiceTest {
                 () -> testee.getPackFromClient(packId, userName));
 
         verify(delivery, times(0)).setCourier(user);
-        verify(delivery, times(0)).setGetPackDate(any(LocalDateTime.class));
+        verify(delivery, times(0)).setReceivedAt(any(LocalDateTime.class));
     }
 
 
@@ -129,7 +129,7 @@ class DeliveryServiceTest {
                 () -> testee.getPackFromClient(packId, userName));
 
         verify(delivery, times(0)).setCourier(user);
-        verify(delivery, times(0)).setGetPackDate(any(LocalDateTime.class));
+        verify(delivery, times(0)).setReceivedAt(any(LocalDateTime.class));
     }
 
     @Test
@@ -145,7 +145,7 @@ class DeliveryServiceTest {
                 () -> testee.getPackFromClient(packId, userName));
 
         verify(delivery, times(0)).setCourier(user);
-        verify(delivery, times(0)).setGetPackDate(any(LocalDateTime.class));
+        verify(delivery, times(0)).setReceivedAt(any(LocalDateTime.class));
     }
 
 
@@ -160,7 +160,7 @@ class DeliveryServiceTest {
 
         testee.deliverPack(packId, userName);
 
-        verify(delivery).setDeliverPackDate(any(LocalDateTime.class));
+        verify(delivery).setDeliveredAt(any(LocalDateTime.class));
     }
 
 
@@ -174,7 +174,7 @@ class DeliveryServiceTest {
         assertThrows(UserNotFoundException.class,
                 () -> testee.deliverPack(packId, userName));
 
-        verify(delivery, times(0)).setDeliverPackDate(any(LocalDateTime.class));
+        verify(delivery, times(0)).setDeliveredAt(any(LocalDateTime.class));
     }
 
     @Test
@@ -187,7 +187,7 @@ class DeliveryServiceTest {
         assertThrows(BadCredentialsException.class,
                 () -> testee.deliverPack(packId, userName));
 
-        verify(delivery, times(0)).setDeliverPackDate(any(LocalDateTime.class));
+        verify(delivery, times(0)).setDeliveredAt(any(LocalDateTime.class));
     }
 
 
@@ -202,7 +202,7 @@ class DeliveryServiceTest {
         assertThrows(PackNotFoundException.class,
                 () -> testee.deliverPack(packId, userName));
 
-        verify(delivery, times(0)).setDeliverPackDate(any(LocalDateTime.class));
+        verify(delivery, times(0)).setDeliveredAt(any(LocalDateTime.class));
     }
 
     @Test
@@ -217,6 +217,6 @@ class DeliveryServiceTest {
         assertThrows(DeliveryNotFoundException.class,
                 () -> testee.deliverPack(packId, userName));
 
-        verify(delivery, times(0)).setDeliverPackDate(any(LocalDateTime.class));
+        verify(delivery, times(0)).setDeliveredAt(any(LocalDateTime.class));
     }
 }
