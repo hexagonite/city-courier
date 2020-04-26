@@ -1,4 +1,4 @@
-package pl.ug.citycourier.internal.algorithm.pathfinder;
+package pl.ug.citycourier.internal.pathfinder;
 
 import org.springframework.stereotype.Component;
 import pl.ug.citycourier.internal.algorithm.dto.Path;

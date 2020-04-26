@@ -20,6 +20,10 @@ public class CoordinatePairDTO {
         return coordinatePair;
     }
 
+    public static CoordinatePairDTO createFromCoordinatePair(CoordinatePair coordinatePair) {
+        return new CoordinatePairDTO(coordinatePair.getLongitude(), coordinatePair.getLatitude());
+    }
+
     public double getLongitude() {
         return longitude;
     }
