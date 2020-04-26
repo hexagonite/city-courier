@@ -10,7 +10,7 @@ import pl.ug.citycourier.internal.algorithm.dto.CourierInAlgorithm;
 import pl.ug.citycourier.internal.algorithm.dto.DeliveryInAlgorithm;
 import pl.ug.citycourier.internal.algorithm.dto.Path;
 import pl.ug.citycourier.internal.algorithm.exception.InternalAlgorithmException;
-import pl.ug.citycourier.internal.algorithm.pathfinder.Pathfinder;
+import pl.ug.citycourier.internal.pathfinder.Pathfinder;
 import pl.ug.citycourier.internal.coordinate.CoordinatePairDTO;
 import pl.ug.citycourier.internal.courier.CourierJob;
 import pl.ug.citycourier.internal.location.Location;

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import pl.ug.citycourier.internal.algorithm.dto.*;
-import pl.ug.citycourier.internal.algorithm.pathfinder.Pathfinder;
+import pl.ug.citycourier.internal.pathfinder.Pathfinder;
 
 import java.util.ArrayList;
 import java.util.Collections;

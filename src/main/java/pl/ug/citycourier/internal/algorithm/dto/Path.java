@@ -1,9 +1,18 @@
 package pl.ug.citycourier.internal.algorithm.dto;
 
+import pl.ug.citycourier.internal.pathfinder.osrn.Route;
+
 import java.util.Objects;
 
 public class Path implements Comparable<Path> {
+
     private Double distance;
+    private Double time;
+
+    public Path(Route route) {
+        this.distance = (double) route.getDistanceInMeters();
+        this.time = (double) route.getDurationInSeconds();
+    }
 
     public Path(Double distance) {
         this.distance = distance;
@@ -20,8 +29,8 @@ public class Path implements Comparable<Path> {
         return distance;
     }
 
-    public void setDistance(Double distance) {
-        this.distance = distance;
+    public Double getTime() {
+        return time;
     }
 
     @Override
