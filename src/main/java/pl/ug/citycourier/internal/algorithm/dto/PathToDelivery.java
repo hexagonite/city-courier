@@ -9,6 +9,11 @@ public class PathToDelivery implements Comparable<PathToDelivery>{
         this.deliveryInAlgorithm = deliveryInAlgorithm;
     }
 
+    public PathToDelivery(CourierToDeliveryStartPath courierToDeliveryStartPath) {
+        this.path = courierToDeliveryStartPath.getPath();
+        this.deliveryInAlgorithm = courierToDeliveryStartPath.getDeliveryInAlgorithm();
+    }
+
     public Path getPath() {
         return path;
     }
