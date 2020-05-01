@@ -1,4 +1,4 @@
-package pl.ug.citycourier.internal.pathfinder.osrn;
+package pl.ug.citycourier.internal.pathfinder.osrm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

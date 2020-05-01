@@ -1,4 +1,4 @@
-package pl.ug.citycourier.internal.pathfinder.osrn;
+package pl.ug.citycourier.internal.pathfinder.osrm;
 
 import pl.ug.citycourier.internal.coordinate.CoordinatePairDTO;
 

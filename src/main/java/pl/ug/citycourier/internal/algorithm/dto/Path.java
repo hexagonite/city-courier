@@ -1,6 +1,6 @@
 package pl.ug.citycourier.internal.algorithm.dto;
 
-import pl.ug.citycourier.internal.pathfinder.osrn.Route;
+import pl.ug.citycourier.internal.pathfinder.osrm.Route;
 
 import java.util.Objects;
 
