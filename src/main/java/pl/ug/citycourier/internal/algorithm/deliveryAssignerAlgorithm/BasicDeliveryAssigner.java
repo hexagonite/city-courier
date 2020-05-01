@@ -62,6 +62,7 @@ public class BasicDeliveryAssigner implements DeliveryAssigner {
                 Path path = pathfinder.findShortestPath(courierStart, deliveryStart);
                 courier.addPath(path, delivery);
             }
+            courier.sortPaths();
         }
     }
 

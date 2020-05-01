@@ -43,7 +43,7 @@ public class BasicFirstDeliveryAssigner implements FirstDeliveryAssigner {
     }
 
     private boolean doesCourierHaveEmptyList(CourierInAlgorithm courier) {
-        return courier.getPathsFromCourierStartToDeliveryStarts().isEmpty();
+        return courier.getCourierToDeliveryStartPaths().isEmpty();
     }
 
     private void assertResults(Integer assigneeIndex,
