@@ -29,4 +29,10 @@ public class UserService {
         return userRepository.findByStatus(status);
     }
 
+    public void updateStatus(String username, Status status) throws UserNotFoundException {
+        User courier = userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
+        courier.setStatus(status);
+        userRepository.save(courier);
+    }
+
 }

@@ -31,7 +31,7 @@ public class DeliveryController {
         deliveryService.getPackFromClient(packId, securityUserController.getUsernameFromContext());
     }
 
-    @GetMapping("/deliveryPack/{id}")
+    @GetMapping("/deliverPack/{id}")
     public void deliverPack(@PathVariable("id") long packId) throws EntityNotFoundException {
         deliveryService.deliverPack(packId, securityUserController.getUsernameFromContext());
     }
