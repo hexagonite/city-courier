@@ -1,6 +1,8 @@
 package pl.ug.citycourier.internal.algorithm.runner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import pl.ug.citycourier.internal.algorithm.deliveryAssignerAlgorithm.DeliveryAssigner;
 import pl.ug.citycourier.internal.algorithm.dto.CourierInAlgorithm;
 import pl.ug.citycourier.internal.algorithm.dto.CourierWithCoordinates;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
+@Component
 public class AlgorithmRunner {
     private DeliveryAssigner deliveryAssigner;
     private UserService userService;
@@ -37,6 +40,7 @@ public class AlgorithmRunner {
         this.courierTaskManager = courierTaskManager;
     }
 
+    @Scheduled(initialDelayString = "${initialDelay.in.milliseconds}", fixedDelayString = "${fixedDelay.in.milliseconds}")
     public void run() {
         var availableDeliveries = getAvailableDeliveries();
         if (!availableDeliveries.isEmpty()) {

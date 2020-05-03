@@ -7,12 +7,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 import pl.ug.citycourier.internal.security.boundary.RoleName;
 import pl.ug.citycourier.internal.security.entity.Role;
 import pl.ug.citycourier.internal.security.internal.repository.RoleRepository;
 
 @SpringBootApplication
+@EnableScheduling
 @ComponentScan(basePackages = "pl.ug.citycourier")
 public class CityCourierApplication {
 
