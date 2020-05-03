@@ -16,7 +16,7 @@ public class CourierCoordinatePairManager {
         return Optional.ofNullable(coordinatePairForCourierName.get(courierName)).orElseThrow(CoordinatePairForCourierNameNotFound::new);
     }
 
-    public void actualiseCoordinatePairForCourier(String courierName, CoordinatePairDTO coordinatePairDTO) {
+    public void updateCourierCoordinatePair(String courierName, CoordinatePairDTO coordinatePairDTO) {
         coordinatePairForCourierName.put(courierName, coordinatePairDTO);
     }
 }
