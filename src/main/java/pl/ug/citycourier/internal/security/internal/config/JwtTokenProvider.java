@@ -19,7 +19,7 @@ import java.util.Map;
 public class JwtTokenProvider {
 
     private static final String SECRET = "SecretKeyToGenJWTs";
-    private static final long EXPIRATION_TIME = 3000_000;
+    private static final long EXPIRATION_TIME = 3600 * 24;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -39,7 +39,7 @@ public class JwtTokenProvider {
         claims.put("id", userId);
         claims.put("username", user.getUsername());
 
-        String token =  Jwts.builder()
+        String token = Jwts.builder()
                 .setSubject(userId)
                 .setClaims(claims)
                 .setIssuedAt(now)
