@@ -1,7 +1,6 @@
 package pl.ug.citycourier.internal.delivery;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.ug.citycourier.internal.common.EntityNotFoundException;

@@ -44,7 +44,7 @@ public class BasicCourierJobCreator implements CourierJobCreator {
             case 5:
                 return createCourierTasksHelper(delivery, BS, AS, BF, AF);
         }
-         return new PriorityQueue<>();
+        return new PriorityQueue<>();
     }
 
     private Queue<CourierTask> createCourierTasksHelper(Delivery delivery, LocationWithType... locationsWithType) {

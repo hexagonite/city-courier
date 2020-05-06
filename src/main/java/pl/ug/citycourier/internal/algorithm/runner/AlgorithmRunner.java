@@ -9,14 +9,12 @@ import pl.ug.citycourier.internal.algorithm.dto.CourierWithCoordinates;
 import pl.ug.citycourier.internal.algorithm.dto.DeliveryInAlgorithm;
 import pl.ug.citycourier.internal.algorithm.exception.InternalAlgorithmException;
 import pl.ug.citycourier.internal.courier.CourierCoordinatePairManager;
-import pl.ug.citycourier.internal.courier.CourierJob;
 import pl.ug.citycourier.internal.courier.CourierTaskManager;
 import pl.ug.citycourier.internal.delivery.DeliveryService;
 import pl.ug.citycourier.internal.user.Status;
 import pl.ug.citycourier.internal.user.UserService;
 
 import java.util.List;
-import java.util.Queue;
 import java.util.stream.Collectors;
 
 @Component

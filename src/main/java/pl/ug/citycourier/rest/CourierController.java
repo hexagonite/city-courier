@@ -8,7 +8,6 @@ import pl.ug.citycourier.internal.coordinate.CoordinatePairDTO;
 import pl.ug.citycourier.internal.courier.CourierCoordinatePairManager;
 import pl.ug.citycourier.internal.courier.CourierTask;
 import pl.ug.citycourier.internal.courier.CourierTaskManager;
-import pl.ug.citycourier.internal.user.Status;
 import pl.ug.citycourier.internal.user.UserNotFoundException;
 import pl.ug.citycourier.internal.user.UserService;
 import pl.ug.citycourier.internal.user.UserStatusWrapper;

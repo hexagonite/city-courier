@@ -1,6 +1,6 @@
 package pl.ug.citycourier.internal.algorithm.dto;
 
-public class PathToDelivery implements Comparable<PathToDelivery>{
+public class PathToDelivery implements Comparable<PathToDelivery> {
     private Path path;
     private DeliveryInAlgorithm deliveryInAlgorithm;
 

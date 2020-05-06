@@ -2,7 +2,7 @@ package pl.ug.citycourier.internal.algorithm.dto;
 
 import java.util.List;
 
-public class ShortestCourierPath implements Comparable<ShortestCourierPath>{
+public class ShortestCourierPath implements Comparable<ShortestCourierPath> {
     private PathToDelivery entirePath;
     private List<LocationWithType> locations;
     private int index;

@@ -1,7 +1,6 @@
 package pl.ug.citycourier.internal.algorithm.dto;
 
 import pl.ug.citycourier.internal.coordinate.CoordinatePairDTO;
-import pl.ug.citycourier.internal.location.Location;
 import pl.ug.citycourier.internal.user.User;
 
 public class CourierWithCoordinates {
