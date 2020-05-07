@@ -5,15 +5,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.ug.citycourier.internal.security.boundary.UserSecurityService;
+import pl.ug.citycourier.internal.security.entity.Role;
 import pl.ug.citycourier.internal.security.entity.VerificationToken;
 import pl.ug.citycourier.internal.security.internal.exception.UserDtoValidationException;
 import pl.ug.citycourier.internal.security.internal.exception.WrongTokenException;
 import pl.ug.citycourier.internal.security.internal.repository.RoleRepository;
 import pl.ug.citycourier.internal.security.internal.repository.TokenRepository;
-import pl.ug.citycourier.internal.user.User;
-import pl.ug.citycourier.internal.user.UserBuilder;
-import pl.ug.citycourier.internal.user.UserDto;
-import pl.ug.citycourier.internal.user.UserRepository;
+import pl.ug.citycourier.internal.user.*;
 
 import java.util.Calendar;
 import java.util.UUID;
@@ -45,7 +43,7 @@ public class UserSecurityServiceImpl implements UserSecurityService {
                 .withName(accountDto.getName())
                 .withSurname(accountDto.getSurname())
                 .withPassword(passwordEncoder.encode(accountDto.getPassword()))
-                .withRole(roleRepository.findById(1).orElseThrow(() -> new IllegalArgumentException("Role not found")))
+                .withRole(getUserRoleFromDto(accountDto))
                 .withEmail(accountDto.getEmail())
                 .build();
         return userRepository.save(user);
@@ -68,6 +66,18 @@ public class UserSecurityServiceImpl implements UserSecurityService {
 
     private boolean checkIfUsernameExists(UserDto userDto) {
         return userRepository.findByUsername(userDto.getUsername()).isPresent();
+    }
+
+    private Role getUserRoleFromDto(UserDto accountDto) {
+        if (accountDto instanceof UserWithRoleDto) {
+            return getUserRole(((UserWithRoleDto) accountDto).getRoleId());
+        } else {
+            return getUserRole(1);
+        }
+    }
+
+    private Role getUserRole(int id) {
+        return roleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Role not found"));
     }
 
     @Override
