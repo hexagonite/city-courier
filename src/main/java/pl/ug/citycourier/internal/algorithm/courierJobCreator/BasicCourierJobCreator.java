@@ -3,8 +3,10 @@ package pl.ug.citycourier.internal.algorithm.courierJobCreator;
 import org.springframework.stereotype.Component;
 import pl.ug.citycourier.internal.algorithm.dto.CourierInAlgorithm;
 import pl.ug.citycourier.internal.algorithm.dto.LocationWithType;
+import pl.ug.citycourier.internal.algorithm.exception.InternalAlgorithmException;
 import pl.ug.citycourier.internal.courier.CourierJob;
 import pl.ug.citycourier.internal.courier.CourierTask;
+import pl.ug.citycourier.internal.courier.CourierTaskType;
 import pl.ug.citycourier.internal.delivery.Delivery;
 
 import java.util.List;
@@ -19,11 +21,32 @@ public class BasicCourierJobCreator implements CourierJobCreator {
     @Override
     public Queue<CourierJob> createCourierJobs(List<CourierInAlgorithm> couriers) {
         return couriers.stream()
-                .map(courier -> new CourierJob(createCourierTasks(courier), courier.getCourier()))
+                .map(this::createCourierJobFromCourier)
                 .collect(Collectors.toCollection(PriorityQueue::new));
     }
 
-    private Queue<CourierTask> createCourierTasks(CourierInAlgorithm courier) {
+    private CourierJob createCourierJobFromCourier(CourierInAlgorithm courier) {
+        return new CourierJob(createCourierTasks(courier), courier.getCourier());
+    }
+
+    private Queue<CourierTask> createCourierTasks(CourierInAlgorithm courier) throws InternalAlgorithmException {
+        int numberOfDeliveries = courier.getAssignedDeliveries().size();
+        switch (numberOfDeliveries) {
+            case 0: return new PriorityQueue<>();
+            case 1: return createCourierTasksFromSingleDelivery(courier);
+            case 2: return createCourierTasksFromTwoDeliveries(courier);
+            default: throw new InternalAlgorithmException("Wrong number of deliveries");
+        }
+    }
+
+    private Queue<CourierTask> createCourierTasksFromSingleDelivery(CourierInAlgorithm courier) {
+        Delivery singleDelivery = courier.getFirstDelivery().getDeliveryInAlgorithm();
+        LocationWithType start = new LocationWithType(singleDelivery.getStart(), CourierTaskType.PICK_UP_PACK);
+        LocationWithType end = new LocationWithType(singleDelivery.getDestination(), CourierTaskType.DELIVER_PACK);
+        return createCourierTasksHelper(singleDelivery, start, end);
+    }
+
+    private Queue<CourierTask> createCourierTasksFromTwoDeliveries(CourierInAlgorithm courier) {
         var shortestCourierPath = courier.getShortestCourierPath();
         var AS = shortestCourierPath.getLocations().get(0);
         var AF = shortestCourierPath.getLocations().get(1);
@@ -43,8 +66,9 @@ public class BasicCourierJobCreator implements CourierJobCreator {
                 return createCourierTasksHelper(delivery, BS, AS, AF, BF);
             case 5:
                 return createCourierTasksHelper(delivery, BS, AS, BF, AF);
+            default:
+                return new PriorityQueue<>();
         }
-        return new PriorityQueue<>();
     }
 
     private Queue<CourierTask> createCourierTasksHelper(Delivery delivery, LocationWithType... locationsWithType) {
