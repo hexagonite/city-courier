@@ -17,6 +17,7 @@ import pl.ug.citycourier.internal.security.internal.exception.WrongTokenExceptio
 import pl.ug.citycourier.internal.security.internal.service.AuthValidationErrorService;
 import pl.ug.citycourier.internal.user.User;
 import pl.ug.citycourier.internal.user.UserDto;
+import pl.ug.citycourier.internal.user.UserWithRoleDto;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -107,6 +108,13 @@ public class AuthController {
         userSecurityService.validateVerificationToken(token);
         final User user = userSecurityService.getUser(token);
         authWithoutPassword(user);
+    }
+
+    @PostMapping("/admin/createUserAccount")
+    public void createUserAccount(@RequestBody UserWithRoleDto accountDto) throws UserDtoValidationException {
+        userSecurityService.registerNewUserAccount(accountDto);
+        Authentication authentication = createAuthentication(new LoginDto(accountDto.getUsername(), accountDto.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     private void authWithoutPassword(User user) {
