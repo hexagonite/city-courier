@@ -11,7 +11,7 @@ public class CourierTaskManager {
 
     public Collection<CourierTask> getAndRemoveTasksForCourier(String courierName) {
         Collection<CourierTask> tasksForSingleCourier = tasksForAllCouriers.getOrDefault(courierName, Collections.emptyList());
-        tasksForAllCouriers.put(courierName, Collections.emptyList());
+        tasksForAllCouriers.put(courierName, new ArrayList<>());
         return tasksForSingleCourier;
     }
 
@@ -19,7 +19,9 @@ public class CourierTaskManager {
         if (tasksForAllCouriers.containsKey(courierName)) {
             tasksForAllCouriers.get(courierName).add(courierTask);
         } else {
-            tasksForAllCouriers.put(courierName, Arrays.asList(courierTask));
+            List<CourierTask> tasks = new ArrayList<>();
+            tasks.add(courierTask);
+            tasksForAllCouriers.put(courierName, tasks);
         }
     }
 

@@ -9,6 +9,8 @@ import pl.ug.citycourier.internal.courier.CourierTask;
 import pl.ug.citycourier.internal.courier.CourierTaskType;
 import pl.ug.citycourier.internal.delivery.Delivery;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -19,10 +21,10 @@ import java.util.stream.Stream;
 public class BasicCourierJobCreator implements CourierJobCreator {
 
     @Override
-    public Queue<CourierJob> createCourierJobs(List<CourierInAlgorithm> couriers) {
+    public Collection<CourierJob> createCourierJobs(List<CourierInAlgorithm> couriers) {
         return couriers.stream()
-                .map(this::createCourierJobFromCourier)
-                .collect(Collectors.toCollection(PriorityQueue::new));
+                .map(courier -> new CourierJob(createCourierTasks(courier), courier.getCourier()))
+                .collect(Collectors.toList());
     }
 
     private CourierJob createCourierJobFromCourier(CourierInAlgorithm courier) {
@@ -74,7 +76,7 @@ public class BasicCourierJobCreator implements CourierJobCreator {
     private Queue<CourierTask> createCourierTasksHelper(Delivery delivery, LocationWithType... locationsWithType) {
         return Stream.of(locationsWithType)
                 .map(locationWithType -> new CourierTask(locationWithType, delivery))
-                .collect(Collectors.toCollection(PriorityQueue::new));
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
 }

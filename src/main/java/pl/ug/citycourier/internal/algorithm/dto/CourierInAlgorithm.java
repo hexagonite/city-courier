@@ -42,14 +42,17 @@ public class CourierInAlgorithm {
 
     public List<PathToDelivery> getNearestPathsToDeliveriesWithRemoval(int maxResults) {
         List<PathToDelivery> pathsToDeliveries = new ArrayList<>();
-        for (var courierToDeliveryStartPath : courierToDeliveryStartPaths) {
+        int i = 0;
+        while(i < courierToDeliveryStartPaths.size()) {
+            var courierToDeliveryStartPath = courierToDeliveryStartPaths.get(i);
             if (courierToDeliveryStartPath.isDeliveryAssigned()) {
                 courierToDeliveryStartPaths.remove(0);
             } else {
                 pathsToDeliveries.add(new PathToDelivery(courierToDeliveryStartPath));
-                if (pathsToDeliveries.size() == 3) {
+                if (pathsToDeliveries.size() == maxResults) {
                     break;
                 }
+                i++;
             }
         }
         return pathsToDeliveries;

@@ -44,7 +44,7 @@ public class DeliveryService {
     @Transactional
     public Delivery addDelivery(NewDeliveryDTO newDeliveryDTO, String userName) throws UserNotFoundException {
         Pack pack = packService.createPackFromDTO(newDeliveryDTO.createPackDTO());
-        User client = userService.getCourierFromUsername(userName);
+        User client = userService.getUserFromUsername(userName);
         Location start = locationService.findOrCreateLocationByCoordinate(newDeliveryDTO.getStartCoordinates());
         Location destination = locationService.findOrCreateLocationByCoordinate(newDeliveryDTO.getEndCoordinates());
         Delivery newDelivery = DeliveryBuilder.aDelivery()

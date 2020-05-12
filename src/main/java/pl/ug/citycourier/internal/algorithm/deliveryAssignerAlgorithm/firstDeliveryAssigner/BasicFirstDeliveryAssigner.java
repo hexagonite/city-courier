@@ -28,7 +28,7 @@ public class BasicFirstDeliveryAssigner implements FirstDeliveryAssigner {
                     couriersLeftIndices.remove(assigneeIndex);
                 } else {
                     var path = couriers.get(courierIndex).getNearestPathToDeliveryWithRemoval();
-                    if (path.getPath().equals(minPath)) {
+                    if (path.getPath().compareTo(minPath) < 0) {
                         minPath = path.getPath();
                         courierFirstDelivery = path.getDeliveryInAlgorithm();
                         assigneeIndex = courierIndex;
