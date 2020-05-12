@@ -28,6 +28,7 @@ public class User {
     @JsonIgnore
     @ManyToOne
     private Role role;
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @JsonIgnore

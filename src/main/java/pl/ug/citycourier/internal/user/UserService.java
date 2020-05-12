@@ -17,6 +17,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public User getUserFromUsername(String userName) throws UserNotFoundException {
+        return userRepository.findByUsername(userName).orElseThrow(UserNotFoundException::new);
+    }
+
     public User getCourierFromUsername(String userName) throws UserNotFoundException {
         User courier = userRepository.findByUsername(userName).orElseThrow(UserNotFoundException::new);
         if (courier.getRole().getName() == RoleName.COURIER) {

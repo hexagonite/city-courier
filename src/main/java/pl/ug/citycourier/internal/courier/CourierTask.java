@@ -3,16 +3,17 @@ package pl.ug.citycourier.internal.courier;
 import pl.ug.citycourier.internal.algorithm.dto.LocationWithType;
 import pl.ug.citycourier.internal.delivery.Delivery;
 import pl.ug.citycourier.internal.location.Location;
+import pl.ug.citycourier.internal.location.LocationDTO;
 
 public class CourierTask {
-    private Location location;
+    private LocationDTO location;
     private CourierTaskType courierTaskType;
     private String recipientName;
     private String recipientSurname;
     private String packDescription;
 
     public CourierTask(LocationWithType locationWithType, Delivery delivery) {
-        this.location = locationWithType.getLocation();
+        this.location = new LocationDTO(locationWithType.getLocation());
         this.courierTaskType = locationWithType.getCourierTaskType();
         this.recipientName = delivery.getClient().getName();
         this.recipientSurname = delivery.getClient().getSurname();
@@ -22,11 +23,11 @@ public class CourierTask {
     public CourierTask() {
     }
 
-    public Location getLocation() {
+    public LocationDTO getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(LocationDTO location) {
         this.location = location;
     }
 

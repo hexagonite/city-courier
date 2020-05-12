@@ -15,6 +15,7 @@ import pl.ug.citycourier.internal.courier.CourierJob;
 import pl.ug.citycourier.internal.location.Location;
 import pl.ug.citycourier.internal.pathfinder.Pathfinder;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Queue;
 
@@ -45,7 +46,7 @@ public class BasicDeliveryAssigner implements DeliveryAssigner {
     }
 
     @Override
-    public Queue<CourierJob> run(List<DeliveryInAlgorithm> deliveries, List<CourierInAlgorithm> couriers)
+    public Collection<CourierJob> run(List<DeliveryInAlgorithm> deliveries, List<CourierInAlgorithm> couriers)
             throws InternalAlgorithmException {
         findDistancesBetweenAllCouriersAndAllDeliveries(deliveries, couriers);
         firstDeliveryAssigner.assignFirstDeliveries(couriers);
