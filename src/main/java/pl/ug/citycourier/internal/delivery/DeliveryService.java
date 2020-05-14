@@ -56,6 +56,11 @@ public class DeliveryService {
         return deliveryRepository.save(newDelivery);
     }
 
+    public void assignDeliveryToCourier(Delivery delivery, User courier) {
+        delivery.setCourier(courier);
+        deliveryRepository.save(delivery);
+    }
+
     @Transactional
     public void getPackFromClient(long packId, String userName) throws EntityNotFoundException {
         User courier = userService.getCourierFromUsername(userName);

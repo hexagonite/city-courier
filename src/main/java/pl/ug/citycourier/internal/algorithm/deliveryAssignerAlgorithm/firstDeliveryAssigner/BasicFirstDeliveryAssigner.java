@@ -37,7 +37,6 @@ public class BasicFirstDeliveryAssigner implements FirstDeliveryAssigner {
             }
             assertResults(assigneeIndex, courierFirstDelivery);
             couriers.get(assigneeIndex).assignDelivery(new PathToDelivery(minPath, courierFirstDelivery));
-            courierFirstDelivery.setAssigned(true);
             couriersLeftIndices.remove(assigneeIndex);
         } while (!couriersLeftIndices.isEmpty());
     }

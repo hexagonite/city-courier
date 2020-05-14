@@ -35,7 +35,6 @@ public class BasicSecondDeliveryAssigner implements SecondDeliveryAssigner {
                 var shortestCourierPath = Collections.min(shortestPotentialPaths);
                 courier.assignDelivery(shortestCourierPath.getEntirePath());
                 courier.setShortestCourierPath(shortestCourierPath);
-                shortestCourierPath.getEntirePath().getDeliveryInAlgorithm().setAssigned(true);
             }
         }
     }
