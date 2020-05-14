@@ -14,6 +14,7 @@ import pl.ug.citycourier.internal.coordinate.CoordinatePairDTO;
 import pl.ug.citycourier.internal.courier.CourierJob;
 import pl.ug.citycourier.internal.location.Location;
 import pl.ug.citycourier.internal.pathfinder.Pathfinder;
+import pl.ug.citycourier.internal.user.UserNotFoundException;
 
 import java.util.Collection;
 import java.util.List;
@@ -47,7 +48,7 @@ public class BasicDeliveryAssigner implements DeliveryAssigner {
 
     @Override
     public Collection<CourierJob> run(List<DeliveryInAlgorithm> deliveries, List<CourierInAlgorithm> couriers)
-            throws InternalAlgorithmException {
+            throws InternalAlgorithmException, UserNotFoundException {
         findDistancesBetweenAllCouriersAndAllDeliveries(deliveries, couriers);
         firstDeliveryAssigner.assignFirstDeliveries(couriers);
         secondDeliveryAssigner.assignSecondDeliveries(couriers);

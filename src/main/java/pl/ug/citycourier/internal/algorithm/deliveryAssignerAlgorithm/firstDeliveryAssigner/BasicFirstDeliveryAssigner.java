@@ -1,11 +1,15 @@
 package pl.ug.citycourier.internal.algorithm.deliveryAssignerAlgorithm.firstDeliveryAssigner;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.ug.citycourier.internal.algorithm.dto.CourierInAlgorithm;
 import pl.ug.citycourier.internal.algorithm.dto.DeliveryInAlgorithm;
 import pl.ug.citycourier.internal.algorithm.dto.Path;
 import pl.ug.citycourier.internal.algorithm.dto.PathToDelivery;
 import pl.ug.citycourier.internal.algorithm.exception.InternalAlgorithmException;
+import pl.ug.citycourier.internal.user.Status;
+import pl.ug.citycourier.internal.user.UserNotFoundException;
+import pl.ug.citycourier.internal.user.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +19,11 @@ import java.util.stream.IntStream;
 @Component
 public class BasicFirstDeliveryAssigner implements FirstDeliveryAssigner {
 
+    @Autowired
+    private UserService userService;
+
     @Override
-    public void assignFirstDeliveries(List<CourierInAlgorithm> couriers) throws InternalAlgorithmException {
+    public void assignFirstDeliveries(List<CourierInAlgorithm> couriers) throws InternalAlgorithmException, UserNotFoundException {
         List<Integer> couriersLeftIndices =
                 IntStream.range(0, couriers.size()).boxed().collect(Collectors.toCollection(ArrayList::new));
         do {
@@ -37,6 +44,8 @@ public class BasicFirstDeliveryAssigner implements FirstDeliveryAssigner {
             }
             assertResults(assigneeIndex, courierFirstDelivery);
             couriers.get(assigneeIndex).assignDelivery(new PathToDelivery(minPath, courierFirstDelivery));
+            String courierUsername = couriers.get(assigneeIndex).getCourier().getUsername();
+            userService.updateStatus(courierUsername, Status.NOT_AVAILABLE);
             couriersLeftIndices.remove(assigneeIndex);
         } while (!couriersLeftIndices.isEmpty());
     }
