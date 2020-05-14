@@ -12,6 +12,7 @@ import pl.ug.citycourier.internal.courier.CourierCoordinatePairManager;
 import pl.ug.citycourier.internal.courier.CourierTaskManager;
 import pl.ug.citycourier.internal.delivery.DeliveryService;
 import pl.ug.citycourier.internal.user.Status;
+import pl.ug.citycourier.internal.user.UserNotFoundException;
 import pl.ug.citycourier.internal.user.UserService;
 
 import java.util.List;
@@ -72,7 +73,7 @@ public class AlgorithmRunner {
                     courierTaskManager.addNewTaskForCourier(courierJob.getCourier().getName(), courierTask);
                 }
             }
-        } catch (InternalAlgorithmException e) {
+        } catch (InternalAlgorithmException | UserNotFoundException e) {
             System.err.println(e.getMessage());
         }
     }

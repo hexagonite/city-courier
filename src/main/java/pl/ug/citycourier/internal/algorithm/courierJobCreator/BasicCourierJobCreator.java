@@ -27,10 +27,6 @@ public class BasicCourierJobCreator implements CourierJobCreator {
                 .collect(Collectors.toList());
     }
 
-    private CourierJob createCourierJobFromCourier(CourierInAlgorithm courier) {
-        return new CourierJob(createCourierTasks(courier), courier.getCourier());
-    }
-
     private Queue<CourierTask> createCourierTasks(CourierInAlgorithm courier) throws InternalAlgorithmException {
         int numberOfDeliveries = courier.getAssignedDeliveries().size();
         switch (numberOfDeliveries) {
@@ -56,20 +52,13 @@ public class BasicCourierJobCreator implements CourierJobCreator {
         var BF = shortestCourierPath.getLocations().get(3);
         var delivery = (Delivery) shortestCourierPath.getEntirePath().getDeliveryInAlgorithm();
         switch (shortestCourierPath.getIndex()) {
-            case 0:
-                return createCourierTasksHelper(delivery, AS, AF, BS, BF);
-            case 1:
-                return createCourierTasksHelper(delivery, AS, BS, BF, AF);
-            case 2:
-                return createCourierTasksHelper(delivery, AS, BS, AF, BF);
-            case 3:
-                return createCourierTasksHelper(delivery, BS, BF, AS, AF);
-            case 4:
-                return createCourierTasksHelper(delivery, BS, AS, AF, BF);
-            case 5:
-                return createCourierTasksHelper(delivery, BS, AS, BF, AF);
-            default:
-                return new PriorityQueue<>();
+            case 0: return createCourierTasksHelper(delivery, AS, AF, BS, BF);
+            case 1: return createCourierTasksHelper(delivery, AS, BS, BF, AF);
+            case 2: return createCourierTasksHelper(delivery, AS, BS, AF, BF);
+            case 3: return createCourierTasksHelper(delivery, BS, BF, AS, AF);
+            case 4: return createCourierTasksHelper(delivery, BS, AS, AF, BF);
+            case 5: return createCourierTasksHelper(delivery, BS, AS, BF, AF);
+            default: throw new InternalAlgorithmException("Invalid path index");
         }
     }
 
