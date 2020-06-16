@@ -2,26 +2,26 @@ package pl.ug.citycourier.internal.coordinate;
 
 public class CoordinatePairDTO {
 
-    private double longitude;
     private double latitude;
+    private double longitude;
 
     public CoordinatePairDTO() {
     }
 
-    public CoordinatePairDTO(double longitude, double latitude) {
-        this.longitude = longitude;
+    public CoordinatePairDTO(double latitude, double longitude) {
         this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public CoordinatePair createCoordinatePair() {
         CoordinatePair coordinatePair = new CoordinatePair();
-        coordinatePair.setLongitude(longitude);
         coordinatePair.setLatitude(latitude);
+        coordinatePair.setLongitude(longitude);
         return coordinatePair;
     }
 
     public static CoordinatePairDTO createFromCoordinatePair(CoordinatePair coordinatePair) {
-        return new CoordinatePairDTO(coordinatePair.getLongitude(), coordinatePair.getLatitude());
+        return new CoordinatePairDTO(coordinatePair.getLatitude(), coordinatePair.getLongitude());
     }
 
     public double getLongitude() {

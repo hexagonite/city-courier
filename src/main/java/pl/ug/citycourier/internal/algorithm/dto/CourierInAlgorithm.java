@@ -1,19 +1,13 @@
 package pl.ug.citycourier.internal.algorithm.dto;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import pl.ug.citycourier.internal.algorithm.exception.InternalAlgorithmException;
 import pl.ug.citycourier.internal.coordinate.CoordinatePairDTO;
-import pl.ug.citycourier.internal.delivery.Delivery;
-import pl.ug.citycourier.internal.delivery.DeliveryService;
 import pl.ug.citycourier.internal.user.User;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CourierInAlgorithm {
-
-    @Autowired
-    private DeliveryService deliveryService;
 
     private CourierWithCoordinates courierWithCoordinates;
     private ShortestCourierPath shortestCourierPath;
@@ -27,7 +21,6 @@ public class CourierInAlgorithm {
     public void assignDelivery(PathToDelivery pathToDelivery) {
         assignedDeliveries.add(pathToDelivery);
         pathToDelivery.getDeliveryInAlgorithm().setAssigned(true);
-        deliveryService.assignDeliveryToCourier(pathToDelivery.getDeliveryInAlgorithm(), pathToDelivery.getDeliveryInAlgorithm().getCourier());
     }
 
     public void addPath(Path path, DeliveryInAlgorithm delivery) {

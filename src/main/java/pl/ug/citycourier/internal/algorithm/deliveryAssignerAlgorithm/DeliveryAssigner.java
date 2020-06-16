@@ -4,6 +4,7 @@ import pl.ug.citycourier.internal.algorithm.dto.CourierInAlgorithm;
 import pl.ug.citycourier.internal.algorithm.dto.DeliveryInAlgorithm;
 import pl.ug.citycourier.internal.algorithm.exception.InternalAlgorithmException;
 import pl.ug.citycourier.internal.courier.CourierJob;
+import pl.ug.citycourier.internal.delivery.DeliveryNotFoundException;
 import pl.ug.citycourier.internal.user.UserNotFoundException;
 
 import java.util.Collection;
@@ -12,5 +13,5 @@ import java.util.Queue;
 
 public interface DeliveryAssigner {
 
-    Collection<CourierJob> run(List<DeliveryInAlgorithm> deliveries, List<CourierInAlgorithm> couriers) throws InternalAlgorithmException, UserNotFoundException;
+    Collection<CourierJob> run(List<DeliveryInAlgorithm> deliveries, List<CourierInAlgorithm> couriers) throws InternalAlgorithmException, UserNotFoundException, DeliveryNotFoundException;
 }

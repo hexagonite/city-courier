@@ -10,6 +10,7 @@ import pl.ug.citycourier.internal.algorithm.dto.DeliveryInAlgorithm;
 import pl.ug.citycourier.internal.algorithm.exception.InternalAlgorithmException;
 import pl.ug.citycourier.internal.courier.CourierCoordinatePairManager;
 import pl.ug.citycourier.internal.courier.CourierTaskManager;
+import pl.ug.citycourier.internal.delivery.DeliveryNotFoundException;
 import pl.ug.citycourier.internal.delivery.DeliveryService;
 import pl.ug.citycourier.internal.user.Status;
 import pl.ug.citycourier.internal.user.UserNotFoundException;
@@ -73,7 +74,7 @@ public class AlgorithmRunner {
                     courierTaskManager.addNewTaskForCourier(courierJob.getCourier().getName(), courierTask);
                 }
             }
-        } catch (InternalAlgorithmException | UserNotFoundException e) {
+        } catch (InternalAlgorithmException | UserNotFoundException | DeliveryNotFoundException e) {
             System.err.println(e.getMessage());
         }
     }

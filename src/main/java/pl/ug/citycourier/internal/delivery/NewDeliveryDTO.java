@@ -11,6 +11,16 @@ public class NewDeliveryDTO {
     private CoordinatePairDTO startCoordinates;
     private CoordinatePairDTO endCoordinates;
 
+    public NewDeliveryDTO(PackSize packSize, String description, CoordinatePairDTO startCoordinates, CoordinatePairDTO endCoordinates) {
+        this.packSize = packSize;
+        this.description = description;
+        this.startCoordinates = startCoordinates;
+        this.endCoordinates = endCoordinates;
+    }
+
+    public NewDeliveryDTO() {
+    }
+
     public PackDTO createPackDTO() {
         return new PackDTO(packSize, description);
     }
