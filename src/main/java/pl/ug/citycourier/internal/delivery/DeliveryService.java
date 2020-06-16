@@ -56,9 +56,14 @@ public class DeliveryService {
         return deliveryRepository.save(newDelivery);
     }
 
-    public void assignDeliveryToCourier(Delivery delivery, User courier) {
-        delivery.setCourier(courier);
-        deliveryRepository.save(delivery);
+    public void assignDeliveryToCourier(Delivery delivery, User courier) throws DeliveryNotFoundException {
+        Delivery databaseDelivery = findById(delivery.getId());
+        databaseDelivery.setCourier(courier);
+        deliveryRepository.save(databaseDelivery);
+    }
+
+    public Delivery findById(Long id) throws DeliveryNotFoundException {
+        return deliveryRepository.findById(id).orElseThrow(DeliveryNotFoundException::new);
     }
 
     @Transactional

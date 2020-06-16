@@ -7,6 +7,8 @@ import pl.ug.citycourier.internal.algorithm.dto.DeliveryInAlgorithm;
 import pl.ug.citycourier.internal.algorithm.dto.Path;
 import pl.ug.citycourier.internal.algorithm.dto.PathToDelivery;
 import pl.ug.citycourier.internal.algorithm.exception.InternalAlgorithmException;
+import pl.ug.citycourier.internal.delivery.DeliveryNotFoundException;
+import pl.ug.citycourier.internal.delivery.DeliveryService;
 import pl.ug.citycourier.internal.user.Status;
 import pl.ug.citycourier.internal.user.UserNotFoundException;
 import pl.ug.citycourier.internal.user.UserService;
@@ -19,11 +21,17 @@ import java.util.stream.IntStream;
 @Component
 public class BasicFirstDeliveryAssigner implements FirstDeliveryAssigner {
 
-    @Autowired
+    private DeliveryService deliveryService;
     private UserService userService;
 
+    @Autowired
+    public BasicFirstDeliveryAssigner(DeliveryService deliveryService, UserService userService) {
+        this.deliveryService = deliveryService;
+        this.userService = userService;
+    }
+
     @Override
-    public void assignFirstDeliveries(List<CourierInAlgorithm> couriers) throws InternalAlgorithmException, UserNotFoundException {
+    public void assignFirstDeliveries(List<CourierInAlgorithm> couriers) throws InternalAlgorithmException, UserNotFoundException, DeliveryNotFoundException {
         List<Integer> couriersLeftIndices =
                 IntStream.range(0, couriers.size()).boxed().collect(Collectors.toCollection(ArrayList::new));
         do {
@@ -44,6 +52,7 @@ public class BasicFirstDeliveryAssigner implements FirstDeliveryAssigner {
             }
             assertResults(assigneeIndex, courierFirstDelivery);
             couriers.get(assigneeIndex).assignDelivery(new PathToDelivery(minPath, courierFirstDelivery));
+            deliveryService.assignDeliveryToCourier(courierFirstDelivery, couriers.get(assigneeIndex).getCourier());
             String courierUsername = couriers.get(assigneeIndex).getCourier().getUsername();
             userService.updateStatus(courierUsername, Status.NOT_AVAILABLE);
             couriersLeftIndices.remove(assigneeIndex);

@@ -17,6 +17,7 @@ import pl.ug.citycourier.internal.user.User;
 import pl.ug.citycourier.internal.user.UserNotFoundException;
 import pl.ug.citycourier.internal.user.UserService;
 
+import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -82,7 +83,6 @@ class DeliveryServiceTest {
         when(deliveryRepository.findByPack(pack)).thenReturn(Optional.of(delivery));
 
         testee.getPackFromClient(packId, userName);
-
         verify(delivery).setCourier(user);
         verify(delivery).setReceivedAt(any(LocalDateTime.class));
     }

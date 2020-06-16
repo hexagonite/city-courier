@@ -12,13 +12,13 @@ import pl.ug.citycourier.internal.algorithm.dto.Path;
 import pl.ug.citycourier.internal.algorithm.exception.InternalAlgorithmException;
 import pl.ug.citycourier.internal.coordinate.CoordinatePairDTO;
 import pl.ug.citycourier.internal.courier.CourierJob;
+import pl.ug.citycourier.internal.delivery.DeliveryNotFoundException;
 import pl.ug.citycourier.internal.location.Location;
 import pl.ug.citycourier.internal.pathfinder.Pathfinder;
 import pl.ug.citycourier.internal.user.UserNotFoundException;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Queue;
 
 /**
  * Assign a maximum of 2 deliveries each courier. Couriers are first assigned first delivery,
@@ -48,7 +48,7 @@ public class BasicDeliveryAssigner implements DeliveryAssigner {
 
     @Override
     public Collection<CourierJob> run(List<DeliveryInAlgorithm> deliveries, List<CourierInAlgorithm> couriers)
-            throws InternalAlgorithmException, UserNotFoundException {
+            throws InternalAlgorithmException, UserNotFoundException, DeliveryNotFoundException {
         findDistancesBetweenAllCouriersAndAllDeliveries(deliveries, couriers);
         firstDeliveryAssigner.assignFirstDeliveries(couriers);
         secondDeliveryAssigner.assignSecondDeliveries(couriers);
