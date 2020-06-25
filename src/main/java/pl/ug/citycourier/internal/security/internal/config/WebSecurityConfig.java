@@ -92,6 +92,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/api/algorithm/run").hasAuthority("ADMIN")
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/api/courier/**").hasAuthority("COURIER")
                 .antMatchers("/delivery/deliverPack/**").hasAuthority("COURIER")
