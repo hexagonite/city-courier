@@ -10,8 +10,8 @@ class OsrmUrlCreatorTest {
 
     @Test
     void createOsrmUrlForDrivingCoordinates() {
-        CoordinatePairDTO start = new CoordinatePairDTO(25.0, 50.0);
-        CoordinatePairDTO finish = new CoordinatePairDTO(20.0, 40.0);
+        CoordinatePairDTO start = new CoordinatePairDTO(50.0, 25.0);
+        CoordinatePairDTO finish = new CoordinatePairDTO(40.0, 20.0);
 
         String result = OsrmUrlCreator.createOsrmUrlForDrivingCoordinates(start, finish);
 
