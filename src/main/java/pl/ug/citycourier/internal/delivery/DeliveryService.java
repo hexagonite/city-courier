@@ -17,6 +17,7 @@ import pl.ug.citycourier.internal.user.UserService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DeliveryService {
@@ -82,7 +83,21 @@ public class DeliveryService {
     @Transactional
     public void deliverPack(long packId, String username) throws EntityNotFoundException {
         Delivery delivery = getDeliveryByPackId(packId);
+        String assignedCourierName = getAssignedCourierName(delivery);
+        validateCourier(username, assignedCourierName);
         delivery.setDeliveredAt(LocalDateTime.now());
+    }
+
+    private String getAssignedCourierName(Delivery delivery) throws EntityNotFoundException {
+        return Optional.ofNullable(delivery.getCourier())
+                .map(User::getUsername)
+                .orElseThrow(() -> new EntityNotFoundException("There is no assigned courier for this pack!"));
+    }
+
+    private void validateCourier(String username, String assignedCourierName) {
+        if (!username.equals(assignedCourierName)) {
+            throw new SecurityException("This courier cannot deliver this pack!");
+        }
     }
 
     public List<Delivery> getAvailableDeliveries() {

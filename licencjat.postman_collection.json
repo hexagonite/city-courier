@@ -1,0 +1,451 @@
+{
+	"info": {
+		"_postman_id": "31cb1a1c-a190-4111-a3a1-7e4c1466dd38",
+		"name": "licencjat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "rejestracja usera",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"user\",\n    \"surname\": \"user\",\n    \"username\": \"user\",\n    \"password\": \"user\",\n    \"matchingPassword\": \"user\",\n    \"email\": \"user@user.pl\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/registration",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rejestracja admina",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"admin\",\n    \"surname\": \"admin\",\n    \"username\": \"admin\",\n    \"password\": \"admin\",\n    \"matchingPassword\": \"admin\",\n    \"email\": \"admin@admin.pl\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/registration",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "start algorytm",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/start",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rejestracja kuriera1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"kurier1\",\n    \"surname\": \"kurier1\",\n    \"username\": \"kurier1\",\n    \"password\": \"kurier1\",\n    \"matchingPassword\": \"kurier1\",\n    \"email\": \"kurier1@kurier1.pl\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/registration",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rejestracja kuriera2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"kurier2\",\n    \"surname\": \"kurier2\",\n    \"username\": \"kurier2\",\n    \"password\": \"kurier2\",\n    \"matchingPassword\": \"kurier2\",\n    \"email\": \"kurier2@kurier2.pl\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/registration",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"kurier1\",\n\t\"password\":\"kurier1\"\n}\t"
+				},
+				"url": {
+					"raw": "localhost:8081/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dodanie paczki A",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjEiLCJleHAiOjE1ODkzMDU1NTUsImlhdCI6MTU4OTIxOTE1NSwidXNlcm5hbWUiOiJ1c2VyIn0.nDav5NT_VDXE7K3macpuy0cgqkgZ2d1zf6c8AMvt0DGKwm5UDRCoTXIQTJC0eGiaYSk5-K3g6du7Is56KtLiLQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"packSize\": \"SMALL\",\n\t\"description\": \"Random\",\n\t\"startCoordinates\": {\n\t\t\"longitude\":54.346608,\n\t\t\"latitude\":18.630401\n\t},\n\t\"endCoordinates\": {\n\t\t\"longitude\":54.365732,\n\t\t\"latitude\":18.630261\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/api/delivery/addPack",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"delivery",
+						"addPack"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dodanie paczki B",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjEiLCJleHAiOjE1ODkzMDU1NTUsImlhdCI6MTU4OTIxOTE1NSwidXNlcm5hbWUiOiJ1c2VyIn0.nDav5NT_VDXE7K3macpuy0cgqkgZ2d1zf6c8AMvt0DGKwm5UDRCoTXIQTJC0eGiaYSk5-K3g6du7Is56KtLiLQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"packSize\": \"SMALL\",\n\t\"description\": \"Random\",\n\t\"startCoordinates\": {\n\t\t\"longitude\":54.344483,\n\t\t\"latitude\":18.646669\n\t},\n\t\"endCoordinates\": {\n\t\t\"longitude\":54.350205,\n\t\t\"latitude\":18.655364\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/api/delivery/addPack",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"delivery",
+						"addPack"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dodanie paczki C",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjEiLCJleHAiOjE1ODkzMDU1NTUsImlhdCI6MTU4OTIxOTE1NSwidXNlcm5hbWUiOiJ1c2VyIn0.nDav5NT_VDXE7K3macpuy0cgqkgZ2d1zf6c8AMvt0DGKwm5UDRCoTXIQTJC0eGiaYSk5-K3g6du7Is56KtLiLQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"packSize\": \"SMALL\",\n\t\"description\": \"Random\",\n\t\"startCoordinates\": {\n\t\t\"longitude\":54.340722,\n\t\t\"latitude\":18.607261\n\t},\n\t\"endCoordinates\": {\n\t\t\"longitude\":54.335980,\n\t\t\"latitude\":18.630541\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/api/delivery/addPack",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"delivery",
+						"addPack"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dodanie paczki D",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjEiLCJleHAiOjE1ODkzMDU1NTUsImlhdCI6MTU4OTIxOTE1NSwidXNlcm5hbWUiOiJ1c2VyIn0.nDav5NT_VDXE7K3macpuy0cgqkgZ2d1zf6c8AMvt0DGKwm5UDRCoTXIQTJC0eGiaYSk5-K3g6du7Is56KtLiLQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"packSize\": \"SMALL\",\n\t\"description\": \"Random\",\n\t\"startCoordinates\": {\n\t\t\"longitude\":54.336553,\n\t\t\"latitude\":18.611468\n\t},\n\t\"endCoordinates\": {\n\t\t\"longitude\":54.334590,\n\t\t\"latitude\":18.590152\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/api/delivery/addPack",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"delivery",
+						"addPack"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dodanie paczki E",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjEiLCJleHAiOjE1ODkzMDU1NTUsImlhdCI6MTU4OTIxOTE1NSwidXNlcm5hbWUiOiJ1c2VyIn0.nDav5NT_VDXE7K3macpuy0cgqkgZ2d1zf6c8AMvt0DGKwm5UDRCoTXIQTJC0eGiaYSk5-K3g6du7Is56KtLiLQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"packSize\": \"SMALL\",\n\t\"description\": \"Random\",\n\t\"startCoordinates\": {\n\t\t\"longitude\":54.343992,\n\t\t\"latitude\":18.598286\n\t},\n\t\"endCoordinates\": {\n\t\t\"longitude\":54.365241,\n\t\t\"latitude\":18.580475\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/api/delivery/addPack",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"delivery",
+						"addPack"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lokalizacja kuriera 1",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjIiLCJleHAiOjE1ODkzMDY2ODcsImlhdCI6MTU4OTIyMDI4NywidXNlcm5hbWUiOiJrdXJpZXIxIn0.dgMKH-mgqBISRwyIbwu5RimwcsW-NztxcXW5EP7hr_08b9Q2_NDoc7_WHEfQwyQQQxKMGHx_TGrCTZ7l0yEfaQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"longitude\":54.343420,\n\t\"latitude\":18.633626\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/api/courier/updateLocation",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"courier",
+						"updateLocation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lokalizacja kuriera 2",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjMiLCJleHAiOjE1ODkzMDY2MDcsImlhdCI6MTU4OTIyMDIwNywidXNlcm5hbWUiOiJrdXJpZXIyIn0.i_t-IPfXgTnrIM4JNEqVHhZLp_I_bloTDiSjSErl16CH3K5yrnOrv8E-i5AbXWLpsiqJDcDsi4dN45SdCRydgg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"longitude\":54.340559,\n\t\"latitude\":18.594920\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/api/courier/updateLocation",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"courier",
+						"updateLocation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kurier1 taski",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjIiLCJleHAiOjE1ODkzMDY2ODcsImlhdCI6MTU4OTIyMDI4NywidXNlcm5hbWUiOiJrdXJpZXIxIn0.dgMKH-mgqBISRwyIbwu5RimwcsW-NztxcXW5EP7hr_08b9Q2_NDoc7_WHEfQwyQQQxKMGHx_TGrCTZ7l0yEfaQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8081/api/courier/getTasks",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"courier",
+						"getTasks"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
