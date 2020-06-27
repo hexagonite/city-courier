@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "31cb1a1c-a190-4111-a3a1-7e4c1466dd38",
+		"_postman_id": "425a6a2b-12e0-49d4-ba2e-7e6282870d0d",
 		"name": "licencjat",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -28,136 +28,6 @@
 					"port": "8081",
 					"path": [
 						"registration"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "rejestracja admina",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\":\"admin\",\n    \"surname\": \"admin\",\n    \"username\": \"admin\",\n    \"password\": \"admin\",\n    \"matchingPassword\": \"admin\",\n    \"email\": \"admin@admin.pl\"\n}"
-				},
-				"url": {
-					"raw": "localhost:8081/registration",
-					"host": [
-						"localhost"
-					],
-					"port": "8081",
-					"path": [
-						"registration"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "start algorytm",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8081/start",
-					"host": [
-						"localhost"
-					],
-					"port": "8081",
-					"path": [
-						"start"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "rejestracja kuriera1",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\":\"kurier1\",\n    \"surname\": \"kurier1\",\n    \"username\": \"kurier1\",\n    \"password\": \"kurier1\",\n    \"matchingPassword\": \"kurier1\",\n    \"email\": \"kurier1@kurier1.pl\"\n}"
-				},
-				"url": {
-					"raw": "localhost:8081/registration",
-					"host": [
-						"localhost"
-					],
-					"port": "8081",
-					"path": [
-						"registration"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "rejestracja kuriera2",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\":\"kurier2\",\n    \"surname\": \"kurier2\",\n    \"username\": \"kurier2\",\n    \"password\": \"kurier2\",\n    \"matchingPassword\": \"kurier2\",\n    \"email\": \"kurier2@kurier2.pl\"\n}"
-				},
-				"url": {
-					"raw": "localhost:8081/registration",
-					"host": [
-						"localhost"
-					],
-					"port": "8081",
-					"path": [
-						"registration"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "login",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"username\":\"kurier1\",\n\t\"password\":\"kurier1\"\n}\t"
-				},
-				"url": {
-					"raw": "localhost:8081/login",
-					"host": [
-						"localhost"
-					],
-					"port": "8081",
-					"path": [
-						"login"
 					]
 				}
 			},
@@ -339,6 +209,118 @@
 			"response": []
 		},
 		{
+			"name": "rejestracja admina",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"admin\",\n    \"surname\": \"admin\",\n    \"username\": \"admin\",\n    \"password\": \"admin\",\n    \"matchingPassword\": \"admin\",\n    \"email\": \"admin@admin.pl\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/registration",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rejestracja kuriera1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"kurier1\",\n    \"surname\": \"kurier1\",\n    \"username\": \"kurier1\",\n    \"password\": \"kurier1\",\n    \"matchingPassword\": \"kurier1\",\n    \"email\": \"kurier1@kurier1.pl\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/registration",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rejestracja kuriera2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"kurier2\",\n    \"surname\": \"kurier2\",\n    \"username\": \"kurier2\",\n    \"password\": \"kurier2\",\n    \"matchingPassword\": \"kurier2\",\n    \"email\": \"kurier2@kurier2.pl\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/registration",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login 1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"kurier1\",\n\t\"password\":\"kurier1\"\n}\t"
+				},
+				"url": {
+					"raw": "localhost:8081/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "lokalizacja kuriera 1",
 			"request": {
 				"method": "PUT",
@@ -368,6 +350,45 @@
 						"api",
 						"courier",
 						"updateLocation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "aktualizacja stanu 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"kurier1\",\n\t\"password\":\"kurier1\"\n}\t"
+				},
+				"url": {
+					"raw": "localhost:8081/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"login"
 					]
 				}
 			},
@@ -409,7 +430,102 @@
 			"response": []
 		},
 		{
-			"name": "kurier1 taski",
+			"name": "aktualizacja stanu 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login admin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"kurier1\",\n\t\"password\":\"kurier1\"\n}\t"
+				},
+				"url": {
+					"raw": "localhost:8081/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "start algorithm",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/start",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kurier1 zadania",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjIiLCJleHAiOjE1ODkzMDY2ODcsImlhdCI6MTU4OTIyMDI4NywidXNlcm5hbWUiOiJrdXJpZXIxIn0.dgMKH-mgqBISRwyIbwu5RimwcsW-NztxcXW5EP7hr_08b9Q2_NDoc7_WHEfQwyQQQxKMGHx_TGrCTZ7l0yEfaQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8081/api/courier/getTasks",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"courier",
+						"getTasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kurier2 zadania",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
